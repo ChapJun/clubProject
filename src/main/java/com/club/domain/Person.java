@@ -19,23 +19,24 @@ public class Person {
 
 	@Id
 	@GeneratedValue
+	@Column(name = "PERSON_ID")
 	private Long pid;
 	
-	@Column(unique=true, length=50)
+	@Column(unique=true, columnDefinition = "varchar2(50 BYTE)", nullable=false)
 	private String id;
-	@Column(length=50)
+	@Column(columnDefinition = "varchar2(50 BYTE)", nullable=false)
 	private String pw;
-	@Column(length=50)
+	@Column(columnDefinition = "varchar2(50 BYTE)", nullable=false)
 	private String name;
-	@Column(length=50)
+	@Column(columnDefinition = "varchar2(50 BYTE) default ''")
 	private String tel;
-	@Column(length=50)
+	@Column(columnDefinition = "varchar2(50 BYTE) default ''")
 	private String belong;
-	@Column(nullable = true, columnDefinition = "varchar2(200) default ''")
+	@Column(nullable = true, columnDefinition = "varchar2(200 BYTE) default ''")
 	private String person_img;
 	@Column(nullable = true, columnDefinition = "number default 1")
 	private Long authority;
-	@Column(nullable = true, columnDefinition = "varchar2(200) default ''")
+	@Column(nullable = true, columnDefinition = "varchar2(200 BYTE) default ''")
 	private String intro;
 	
 	
