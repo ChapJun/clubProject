@@ -10,7 +10,7 @@ public class ClubApplication {
 		
 		SpringApplication.run(ClubApplication.class, args);
 		
-		
+		System.out.println("ABC");
 	}
 
 }
