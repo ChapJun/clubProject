@@ -2,18 +2,18 @@ package com.club.service;
 
 import java.util.List;
 
-import com.club.domain.Recruitment_board;
+import com.club.domain.Recruitment_Board;
 
 public interface BoardService {
 
-	List<Recruitment_board> getBoardList(Recruitment_board board);
+	List<Recruitment_Board> getBoardList(Recruitment_Board board);
 
-	void insertBoard(Recruitment_board board);
+	void insertBoard(Recruitment_Board board);
 
-	Recruitment_board getReBoard(Recruitment_board board);
+	Recruitment_Board getReBoard(Recruitment_Board board);
 
-	void updateBoard(Recruitment_board board);
+	void updateBoard(Recruitment_Board board);
 
-	void deleteBoard(Recruitment_board board);
+	void deleteBoard(Recruitment_Board board);
 
 }

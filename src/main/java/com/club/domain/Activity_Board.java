@@ -1,6 +1,5 @@
 package com.club.domain;
 
-import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -18,20 +17,17 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name="RECRUITMENT_BOARD")
+@Table(name="ACTIVITY_BOARD")
 
 @Getter
 @Setter
 @ToString
-public class Recruitment_board implements Serializable{
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
+public class Activity_Board {
+
 	@Id
 	@GeneratedValue
+	@Column(name = "ACTIVITY_BOARD_ID")
 	private Long board_no;
 	
 	//private String writer_id
@@ -49,7 +45,7 @@ public class Recruitment_board implements Serializable{
 	private Date regdate;
 	
 	@Column(insertable=false, updatable = false, columnDefinition = "number default 0")
-	private Long cur_cnt;
+	private Long read_cnt;
 	@Column(columnDefinition = "varchar2(2000 BYTE)")
 	private String content;
 }
