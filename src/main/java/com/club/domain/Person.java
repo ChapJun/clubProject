@@ -28,16 +28,15 @@ public class Person {
 	private String pw;
 	@Column(columnDefinition = "varchar2(50 BYTE)", nullable=false)
 	private String name;
-	@Column(columnDefinition = "varchar2(50 BYTE) default ''")
+	@Column(columnDefinition = "varchar2(50 BYTE)")
 	private String tel;
-	@Column(columnDefinition = "varchar2(50 BYTE) default ''")
+	@Column(columnDefinition = "varchar2(50 BYTE)")
 	private String belong;
-	@Column(nullable = true, columnDefinition = "varchar2(200 BYTE) default ''")
+	@Column(columnDefinition = "varchar2(200 BYTE) default 'img/Default-Profile.png'")
 	private String person_img;
-	@Column(nullable = true, columnDefinition = "number default 1")
+	@Column(columnDefinition = "number default 1")
 	private Long authority;
-	@Column(nullable = true, columnDefinition = "varchar2(200 BYTE) default ''")
+	@Column(columnDefinition = "varchar2(200 BYTE)")
 	private String intro;
-	
 	
 }

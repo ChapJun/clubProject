@@ -25,16 +25,16 @@ public class Club {
 	
 	@Column(columnDefinition = "varchar2(50 BYTE)", nullable=false)
 	private String cname;
-	@Column(nullable = true, columnDefinition = "varchar2(200 BYTE) default ''")
+	@Column(columnDefinition = "varchar2(200 BYTE) default '1'")
 	private String club_img;
-	@Column(nullable = true, columnDefinition = "varchar2(200 BYTE) default ''")
+	@Column(columnDefinition = "varchar2(200 BYTE)")
 	private String intro;
-	@Column(columnDefinition = "varchar2(50 BYTE) default '기타'", nullable=true)
+	@Column(columnDefinition = "varchar2(50 BYTE) default '기타'")
 	private String category;
 	@Column(columnDefinition = "varchar2(2000 BYTE)")
 	private String content;
 	
-	@Column(nullable = true, columnDefinition = "number default 1")
+	@Column(columnDefinition = "number default 1")
 	private Long state;
 
 }

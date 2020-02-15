@@ -1,6 +1,5 @@
 package com.club.domain;
 
-import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -23,12 +22,9 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Recruitment_Board implements Serializable{
+public class Recruitment_Board {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+	// 게시 글을 작성한 회원 정보 조회 가능 (그 반대는 안됨)
 	
 	@Id
 	@GeneratedValue
