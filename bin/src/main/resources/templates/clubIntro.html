@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet"
+	href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
+<link rel='stylesheet'
+	href='https://fonts.googleapis.com/css?family=Open+Sans'>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+html, body, h1, h2, h3, h4, h5 {
+	font-family: "Open Sans", sans-serif
+}
+</style>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#navbar").load("html/menu.html");
+	});
+</script>
+</head>
+<body class="w3-theme-l5">
+
+
+
+	<!-- Navbar -->
+	<nav id="navbar"></nav>
+	<!-- Navbar on small screens -->
+	<div id="navDemo"
+		class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium w3-large">
+		<a href="#" class="w3-bar-item w3-button w3-padding-large">Link 1</a>
+		<a href="#" class="w3-bar-item w3-button w3-padding-large">Link 2</a>
+		<a href="#" class="w3-bar-item w3-button w3-padding-large">Link 3</a>
+		<a href="#" class="w3-bar-item w3-button w3-padding-large">My
+			Profile</a>
+	</div>
+	
+	
+	<!-- Page Container -->
+	<div class="w3-container w3-content"
+		style="max-width: 1800px; margin-top: 80px">
+		<!-- The Grid -->
+		<div class="w3-row">
+			<!-- Left Column -->
+			<div class="w3-col m2" style="margin-top: 16px;">
+				<!-- Category -->
+				<div class="w3-card w3-round w3-white w3-hide-small">
+					<div class="w3-container">
+						<p>Category</p>
+						<p>
+						<a th:href="@{/clubIntro}"><span
+								class="w3-tag w3-xlarge w3-theme-d5">전체</span></a>
+								<br><br>
+							<a th:href="@{/clubIntro(category=문화)}">
+							<span class="w3-tag w3-small w3-theme-d4">문화</span></a>
+							 <a th:href="@{/clubIntro(category=학술)}"><span
+								class="w3-tag w3-small w3-theme-d3">학술</span></a> 
+								<a th:href="@{/clubIntro(category=게임)}"><span
+								class="w3-tag w3-small w3-theme-d2">게임</span></a> 
+								<a th:href="@{/clubIntro(category=운동)}"><span
+								class="w3-tag w3-small w3-theme-d1">운동</span></a>
+								<a th:href="@{/clubIntro(category=기타)}"><span
+								class="w3-tag w3-small w3-theme">기타</span></a>
+								
+								<!-- 
+								<span
+								class="w3-tag w3-small w3-theme">Games</span> <span
+								class="w3-tag w3-small w3-theme-l1">Friends</span> <span
+								class="w3-tag w3-small w3-theme-l2">Food</span> <span
+								class="w3-tag w3-small w3-theme-l3">Design</span> <span
+								class="w3-tag w3-small w3-theme-l4">Art</span> <span
+								class="w3-tag w3-small w3-theme-l5"></span>
+								 -->
+						</p>
+					</div>
+				</div>
+				<br>
+			</div>
+
+			<!-- Middle Column -->
+			<div class="w3-col m8 w3-row-padding">
+				<th:block th:each="club : ${clubList}">
+					<div class="w3-container w3-card w3-white w3-round w3-margin">
+						<br> <img th:src="${club.club_img}" alt="club"
+							class="w3-left w3-margin-right"
+							style="width: 200px; height: 150px; background-size: contain; border: 1px solid black;">
+						<h4 th:text="${club.cname}"></h4>
+						<br>
+						<hr class="w3-clear">
+						<p th:text="${club.intro}"></p>
+						<br> <span
+							class="w3-tag w3-small w3-theme-d5 w3-padding w3-margin-bottom"
+							th:text="${club.category}"></span>
+					</div>
+				</th:block>
+				<!-- End Middle Column -->
+			</div>
+
+			<!-- End Grid -->
+		</div>
+
+		<!-- End Page Container -->
+	</div>
+	<br>
+	<!-- Footer -->
+	<footer class="w3-container w3-theme-d3 w3-padding-16">
+		<h5>Footer</h5>
+	</footer>
+
+	<footer class="w3-container w3-theme-d5">
+		<p>
+			Powered by <a href="https://www.w3schools.com/w3css/default.asp"
+				target="_blank">w3.css</a>
+		</p>
+	</footer>
+
+	<script>
+		// Accordion
+		function myFunction(id) {
+			var x = document.getElementById(id);
+			if (x.className.indexOf("w3-show") == -1) {
+				x.className += " w3-show";
+				x.previousElementSibling.className += " w3-theme-d1";
+			} else {
+				x.className = x.className.replace("w3-show", "");
+				x.previousElementSibling.className = x.previousElementSibling.className
+						.replace(" w3-theme-d1", "");
+			}
+		}
+
+		// Used to toggle the menu on smaller screens when clicking on the menu button
+		function openNav() {
+			var x = document.getElementById("navDemo");
+			if (x.className.indexOf("w3-show") == -1) {
+				x.className += " w3-show";
+			} else {
+				x.className = x.className.replace(" w3-show", "");
+			}
+		}
+	</script>
+</body>
+</html>

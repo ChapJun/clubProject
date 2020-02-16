@@ -1,0 +1,19 @@
+package com.club.service;
+
+import java.util.List;
+
+import com.club.domain.Activity_Board;
+
+public interface ActivityBoardService {
+
+	List<Activity_Board> getBoardList();
+
+	void insertBoard(Activity_Board board);
+
+	Activity_Board getBoard(Activity_Board board);
+
+	void updateBoard(Activity_Board board);
+
+	void deleteBoard(Activity_Board board);
+
+}
