@@ -1,10 +1,139 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet"
+	href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
+<link rel='stylesheet'
+	href='https://fonts.googleapis.com/css?family=Open+Sans'>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+html, body, h1, h2, h3, h4, h5 {
+	font-family: "Open Sans", sans-serif
+}
+</style>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#navbar").load("html/menu.html");
+	});
+</script>
 </head>
-<body>
+<body class="w3-theme-l5">
 
+
+
+	<!-- Navbar -->
+	<nav id="navbar"></nav>
+	<!-- Navbar on small screens -->
+	<div id="navDemo"
+		class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium w3-large">
+		<a href="#" class="w3-bar-item w3-button w3-padding-large">Link 1</a>
+		<a href="#" class="w3-bar-item w3-button w3-padding-large">Link 2</a>
+		<a href="#" class="w3-bar-item w3-button w3-padding-large">Link 3</a>
+		<a href="#" class="w3-bar-item w3-button w3-padding-large">My
+			Profile</a>
+	</div>
+	<!-- Page Container -->
+	<div class="w3-container w3-content"
+		style="max-width: 1800px; margin-top: 80px">
+		<!-- The Grid -->
+		<div class="w3-row">
+			<!-- Left Column -->
+			<div class="w3-col m2" style="margin-top: 16px;">
+				<!-- Profile -->
+				<div class="w3-card w3-round w3-white" style="height: 600px;">
+					<div class="w3-container w3-padding">
+						<h4 class="w3-center">Please Sign in</h4>
+						<form id="loginfrm" method="post">
+							<p>
+								<i class="fa fa-user fa-fw w3-margin-right w3-text-theme"></i>&nbspID&nbsp
+								<input id="loginid" type="text" name="username"
+									placeholder="아이디" class="w3-border w3-padding" />
+							</p>
+							<p>
+								<i class="fa fa-key fa-fw w3-margin-right w3-text-theme"></i>PW
+								<input id="loginpw" type="password" name="password"
+									placeholder="패스워드" class="w3-border w3-padding" />
+							</p>
+
+							<hr>
+							<button id="loginbtn" type="submit" class="w3-button w3-theme"
+								style="width: 100%;">로그인</button>
+						</form>
+					</div>
+				</div>
+				<br>
+			</div>
+
+			<!-- Middle Column -->
+			<div class="w3-col m8 w3-row-padding">
+				<div class="w3-container w3-card w3-white w3-round w3-margin">
+
+					<th:block th:each="club : ${clubList}">
+						<br>
+						<img src="${club.club_img}" alt="club"
+							class="w3-left w3-circle w3-margin-right" style="width: 60px">
+						<p th:text="${club.club_img}"></p>
+						<span class="w3-right w3-opacity">1 min</span>
+						<h4 th:text="${club.cname}">
+							<span th:text=" ${club.category}"></span>
+						</h4>
+						<br>
+						<hr class="w3-clear">
+						<p th:text="${club.intro}"></p>
+						
+				</div>
+				</th:block>
+				<!-- End Middle Column -->
+			</div>
+
+			<!-- End Grid -->
+		</div>
+
+		<!-- End Page Container -->
+	</div>
+	<br>
+
+	<!-- Footer -->
+	<footer class="w3-container w3-theme-d3 w3-padding-16">
+		<h5>Footer</h5>
+	</footer>
+
+	<footer class="w3-container w3-theme-d5">
+		<p>
+			Powered by <a href="https://www.w3schools.com/w3css/default.asp"
+				target="_blank">w3.css</a>
+		</p>
+	</footer>
+
+	<script>
+		// Accordion
+		function myFunction(id) {
+			var x = document.getElementById(id);
+			if (x.className.indexOf("w3-show") == -1) {
+				x.className += " w3-show";
+				x.previousElementSibling.className += " w3-theme-d1";
+			} else {
+				x.className = x.className.replace("w3-show", "");
+				x.previousElementSibling.className = x.previousElementSibling.className
+						.replace(" w3-theme-d1", "");
+			}
+		}
+
+		// Used to toggle the menu on smaller screens when clicking on the menu button
+		function openNav() {
+			var x = document.getElementById("navDemo");
+			if (x.className.indexOf("w3-show") == -1) {
+				x.className += " w3-show";
+			} else {
+				x.className = x.className.replace(" w3-show", "");
+			}
+		}
+	</script>
 </body>
 </html>

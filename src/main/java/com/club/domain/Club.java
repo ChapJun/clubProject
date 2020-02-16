@@ -25,7 +25,7 @@ public class Club {
 	
 	@Column(columnDefinition = "varchar2(50 BYTE)", nullable=false)
 	private String cname;
-	@Column(columnDefinition = "varchar2(200 BYTE) default '1'")
+	@Column(columnDefinition = "varchar2(200 BYTE) default 'img/Default-Club.jpg'")
 	private String club_img;
 	@Column(columnDefinition = "varchar2(200 BYTE)")
 	private String intro;
