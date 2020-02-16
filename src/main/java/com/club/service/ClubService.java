@@ -25,4 +25,8 @@ public class ClubService {
 		
 		return club;
 	}
+	
+	public List<Club> getClubByCategory(String category) {
+		return (List<Club>) clubRepo.findByCategory(category);
+	}
 }

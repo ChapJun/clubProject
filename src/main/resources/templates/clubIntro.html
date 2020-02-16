@@ -38,6 +38,8 @@ html, body, h1, h2, h3, h4, h5 {
 		<a href="#" class="w3-bar-item w3-button w3-padding-large">My
 			Profile</a>
 	</div>
+	
+	
 	<!-- Page Container -->
 	<div class="w3-container w3-content"
 		style="max-width: 1800px; margin-top: 80px">
@@ -45,26 +47,35 @@ html, body, h1, h2, h3, h4, h5 {
 		<div class="w3-row">
 			<!-- Left Column -->
 			<div class="w3-col m2" style="margin-top: 16px;">
-				<!-- Profile -->
-				<div class="w3-card w3-round w3-white" style="height: 600px;">
-					<div class="w3-container w3-padding">
-						<h4 class="w3-center">Please Sign in</h4>
-						<form id="loginfrm" method="post">
-							<p>
-								<i class="fa fa-user fa-fw w3-margin-right w3-text-theme"></i>&nbspID&nbsp
-								<input id="loginid" type="text" name="username"
-									placeholder="아이디" class="w3-border w3-padding" />
-							</p>
-							<p>
-								<i class="fa fa-key fa-fw w3-margin-right w3-text-theme"></i>PW
-								<input id="loginpw" type="password" name="password"
-									placeholder="패스워드" class="w3-border w3-padding" />
-							</p>
-
-							<hr>
-							<button id="loginbtn" type="submit" class="w3-button w3-theme"
-								style="width: 100%;">로그인</button>
-						</form>
+				<!-- Category -->
+				<div class="w3-card w3-round w3-white w3-hide-small">
+					<div class="w3-container">
+						<p>Category</p>
+						<p>
+						<a th:href="@{/clubIntro}"><span
+								class="w3-tag w3-xlarge w3-theme-d5">전체</span></a>
+								<br><br>
+							<a th:href="@{/clubIntro(category=문화)}">
+							<span class="w3-tag w3-small w3-theme-d4">문화</span></a>
+							 <a th:href="@{/clubIntro(category=학술)}"><span
+								class="w3-tag w3-small w3-theme-d3">학술</span></a> 
+								<a th:href="@{/clubIntro(category=게임)}"><span
+								class="w3-tag w3-small w3-theme-d2">게임</span></a> 
+								<a th:href="@{/clubIntro(category=운동)}"><span
+								class="w3-tag w3-small w3-theme-d1">운동</span></a>
+								<a th:href="@{/clubIntro(category=기타)}"><span
+								class="w3-tag w3-small w3-theme">기타</span></a>
+								
+								<!-- 
+								<span
+								class="w3-tag w3-small w3-theme">Games</span> <span
+								class="w3-tag w3-small w3-theme-l1">Friends</span> <span
+								class="w3-tag w3-small w3-theme-l2">Food</span> <span
+								class="w3-tag w3-small w3-theme-l3">Design</span> <span
+								class="w3-tag w3-small w3-theme-l4">Art</span> <span
+								class="w3-tag w3-small w3-theme-l5"></span>
+								 -->
+						</p>
 					</div>
 				</div>
 				<br>
@@ -72,22 +83,19 @@ html, body, h1, h2, h3, h4, h5 {
 
 			<!-- Middle Column -->
 			<div class="w3-col m8 w3-row-padding">
-				<div class="w3-container w3-card w3-white w3-round w3-margin">
-
-					<th:block th:each="club : ${clubList}">
-						<br>
-						<img src="${club.club_img}" alt="club"
-							class="w3-left w3-circle w3-margin-right" style="width: 60px">
-						<p th:text="${club.club_img}"></p>
-						<span class="w3-right w3-opacity">1 min</span>
-						<h4 th:text="${club.cname}">
-							<span th:text=" ${club.category}"></span>
-						</h4>
+				<th:block th:each="club : ${clubList}">
+					<div class="w3-container w3-card w3-white w3-round w3-margin">
+						<br> <img th:src="${club.club_img}" alt="club"
+							class="w3-left w3-margin-right"
+							style="width: 200px; height: 150px; background-size: contain; border: 1px solid black;">
+						<h4 th:text="${club.cname}"></h4>
 						<br>
 						<hr class="w3-clear">
 						<p th:text="${club.intro}"></p>
-						
-				</div>
+						<br> <span
+							class="w3-tag w3-small w3-theme-d5 w3-padding w3-margin-bottom"
+							th:text="${club.category}"></span>
+					</div>
 				</th:block>
 				<!-- End Middle Column -->
 			</div>
@@ -98,7 +106,6 @@ html, body, h1, h2, h3, h4, h5 {
 		<!-- End Page Container -->
 	</div>
 	<br>
-
 	<!-- Footer -->
 	<footer class="w3-container w3-theme-d3 w3-padding-16">
 		<h5>Footer</h5>

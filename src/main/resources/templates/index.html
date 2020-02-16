@@ -24,15 +24,29 @@ html, body, h1, h2, h3, h4, h5 {
 			if ($("#loginid").val() == "") {
 				alert("로그인 아이디를 입력해주세요");
 				$("loginid").focus();
+				$("#loginfrm").bind('submit', submitAction);
 			} else if ($("#loginpw").val() == "") {
 				alert("비밀번호를 입력해주세요");
 				$("loginpw").focus();
+				$("#loginfrm").bind('submit', submitAction);
 			} else {
+				$("#loginfrm").unbind('submit', submitAction);
 				$("#loginfrm").submit();
 			}
 		});
 		
 		$("#navbar").load("html/menu.html");
+		
+		submitAction = function() {
+		    var
+		    self = this,
+		    args = [].slice.apply(arguments);
+		    setTimeout(function() {
+		        doSomething.apply(self, args);
+		    }, 0);
+		    return false;
+		};
+		
 	});
 </script>
 </head>
