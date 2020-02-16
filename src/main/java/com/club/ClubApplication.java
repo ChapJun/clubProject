@@ -14,6 +14,7 @@ public class ClubApplication {
 		
 		SpringApplication.run(ClubApplication.class, args);
 		
+		
 	}
 	
 	
