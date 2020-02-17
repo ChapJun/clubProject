@@ -23,9 +23,9 @@ public class Club {
 	@Column(name = "CLUB_ID")
 	private Long cid;
 	
-	@Column(columnDefinition = "varchar2(50 BYTE)", nullable=false)
+	@Column(unique=true, columnDefinition = "varchar2(50 BYTE)", nullable=false)
 	private String cname;
-	@Column(columnDefinition = "varchar2(200 BYTE) default 'img/Default-Club.jpg'")
+	@Column(columnDefinition = "varchar2(200 BYTE) default 'img/Default-Club.png'")
 	private String club_img;
 	@Column(columnDefinition = "varchar2(200 BYTE)")
 	private String intro;

@@ -6,6 +6,8 @@ import com.club.domain.Activity_Board;
 
 public interface ActivityBoardService {
 
+	List<Activity_Board> getTop5List();
+	
 	List<Activity_Board> getBoardList();
 
 	void insertBoard(Activity_Board board);

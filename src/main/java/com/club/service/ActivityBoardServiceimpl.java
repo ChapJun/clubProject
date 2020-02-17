@@ -45,4 +45,9 @@ public class ActivityBoardServiceimpl implements ActivityBoardService {
 		activity_boardRepo.deleteById(board.getBoard_no());
 	}
 
+	@Override
+	public List<Activity_Board> getTop5List() {
+		return activity_boardRepo.findTop5();
+	}
+
 }

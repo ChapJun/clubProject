@@ -3,6 +3,7 @@
 <head>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<title>club</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -36,6 +37,19 @@ a:active {
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#navbar").load("html/menu.html");
+
+		submitAction = function() {
+			var self = this, args = [].slice.apply(arguments);
+			setTimeout(function() {
+				doSomething.apply(self, args);
+			}, 0);
+			return false;
+		};
+
+		$("#apply").click(function() {
+			alert("동호회 가입 신청되었습니다.");
+			$("#apply").submit();
+		});
 	});
 </script>
 </head>
@@ -52,11 +66,10 @@ a:active {
 			Profile</a>
 	</div>
 
-
 	<!-- Page Container -->
 	<div class="w3-container w3-content"
 		style="max-width: 1800px; margin-top: 80px">
-		<h1 th:align="center">동호회 소개</h1>
+		<h1 th:align="center" th:text="${club.cname}"></h1>
 		<!-- The Grid -->
 		<div class="w3-row">
 			<!-- Left Column -->
@@ -96,20 +109,35 @@ a:active {
 
 			<!-- Middle Column -->
 			<div class="w3-col m8 w3-row-padding">
-				<th:block th:each="club : ${clubList}">
-					<div class="w3-container w3-card w3-white w3-round w3-margin">
-						<br> <img th:src="${club.club_img}" alt="club"
-							class="w3-left w3-margin-right"
-							style="width: 200px; height: 150px; background-size: contain; border: 1px solid black;">
-						<a th:href="@{/clubDetail(cname=${club.cname})}"><h4
-								th:text="${club.cname}"></h4></a> <br>
-						<hr class="w3-clear">
-						<p th:text="${club.intro}"></p>
-						<br> <span
-							class="w3-tag w3-small w3-theme-d5 w3-padding w3-margin-bottom"
-							th:text="${club.category}"></span>
-					</div>
-				</th:block>
+				<div class="w3-container w3-card w3-white w3-round w3-margin">
+					<br> <img th:src="${club.club_img}" alt="club"
+						class="w3-left w3-margin-right w3-margin-bottom"
+						style="width: 400px; max-height: 225px; background-size: contain;">
+					<h3 th:text="${club.cname}"></h3>
+					<br>
+					<hr class="w3-clear">
+					<h4 th:text="${club.intro}"></h4>
+					<p th:text="${club.content}"></p>
+					<br>
+					<hr class="w3-clear">
+
+					<form th:action="@{/clubDetail/Apply}" method="post"
+						th:object="${club}">
+						<input type="hidden" name="cid" th:field="*{cid}"> <input
+							type="hidden" name="cname" th:field="*{cname}"> <input
+							type="hidden" name="intro" th:field="*{intro}"> <input
+							type="hidden" name="club_img" th:field="*{club_img}"> <input
+							type="hidden" name="category" th:field="*{category}"> <input
+							type="hidden" name="state" th:field="*{state}"> <input
+							type="hidden" name="content" th:field="*{content}">
+						<button id="apply" type="submit"
+							class="w3-button w3-theme w3-margin-bottom" style="width: 10%;">가입신청</button>
+					</form>
+
+					<a th:href="@{/clubIntro}"><button
+							class="w3-button w3-theme w3-margin-bottom" style="width: 10%;">
+							뒤로가기</button></a>
+				</div>
 				<!-- End Middle Column -->
 			</div>
 
@@ -117,20 +145,6 @@ a:active {
 		</div>
 
 		<!-- End Page Container -->
-		<hr>
-		<div class="w3-center">
-			<!-- Pagination -->
-			<div class="w3-center w3-padding-32">
-				<div class="w3-bar">
-					<th:block th:each="num: ${#numbers.sequence(1,totalPages)}" th:if="${totalPages} > 0">
-						<a th:href="@{/clubIntros(page=${num})}"
-							class="w3-bar-item w3-button w3-theme w3-hover-theme w3-margin-right"
-							th:text="${num}"></a>
-					</th:block>
-				</div>
-			</div>
-		</div>
-
 	</div>
 	<br>
 	<!-- Footer -->
