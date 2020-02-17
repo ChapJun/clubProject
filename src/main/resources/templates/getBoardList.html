@@ -1,40 +1,64 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+<link rel="stylesheet" href="style.css" />
 <title>글 목록</title>
 <meta http-equiv = "Content-Type" content ="text/html; charset=UTF-8">
+		<!-- 합쳐지고 최소화된 최신 CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+		<!-- 부가적인 테마 -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#navbar").load("html/menu.html");
+	});
+</script>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet"
+	href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
+<link rel='stylesheet'
+	href='https://fonts.googleapis.com/css?family=Open+Sans'>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+html, body, h1, h2, h3, h4, h5 {
+	font-family: "Open Sans", sans-serif
+}
+</style>
+
+
+
 </head>
 <body th:align="center">
 
+	 <nav id="navbar"></nav> 
+
+	<br>
+	<br>
+	
+<div class="container">
+<br>
 <h1>활동보고 게시판</h1>
-
-
-<!-- 검색 form -->
-<form action="/getBoardList" method="GET">
-	<div>
-    	<span th:each="pageNum : ${pageList}" th:inline="text">
-        <a th:href="@{'/?page=' + ${pageNum}}">[[${pageNum}]]</a>
-    	</span>
-	</div>
-    <div>
-        <input name="keyword" type="text" placeholder="검색어를 입력해주세요">
-    <button>검색하기</button>
-    </div>
-</form>
+<br>
+<a th:href="getBoardList"> <button class="btn pull-right">글목록</button></a>
+<a th:href="insertBoard"> <button class="btn pull-right w3-margin-right">글작성</button></a>
+<br>
 <br>
 
-
-<table th:align="center" border="1" th:cellpadding="0" th:cellspadding="0" th:width="700">
+<table class="table table-hover" th:align="center" border="1" th:cellpadding="0" th:cellspadding="0" th:width="700">
 <tr>
-	<th bgcolor = "orange" width="100">번호</th>
-	<th bgcolor = "orange" width="200">제목</th>
-	<th bgcolor = "orange" width="150">작성자</th>
-	<th bgcolor = "orange" width="150">등록일</th>
-	<th bgcolor = "orange" width="100">조회수</th>
+	<th width="40" style="text-align:center;">번호</th>
+	<th width="200"style="text-align:center;">제목</th>
+	<th width="80"style="text-align:center;">작성자</th>
+	<th width="80"style="text-align:center;">등록일</th>
+	<th width="40"style="text-align:center;">조회수</th>
 
 </tr>
 <tr th:each="Activity_Board, state : ${boardList}">
-	<td th:text="${state.count}"></td>
+	<td th:text="${Activity_Board.board_no}"></td>
 	<td><a th:href="@{/getBoard(board_no=${Activity_Board.board_no})}"
 			th:text="${Activity_Board.title}"></a></td>
 	<td th:text="${Activity_Board.writer_name}"></td>
@@ -43,7 +67,32 @@
 </tr>
 </table>
 <br>
-<a th:href="insertBoard">글 쓰기</a>
-<a th:href="getBoardList">글 목록</a>
+<!-- 검색 form -->
+
+<form action="/getBoardList" method="GET">
+	<div>
+    	<span th:each="pageNum : ${pageList}" th:inline="text">
+        <a th:href="@{'/?page=' + ${pageNum}}">[[${pageNum}]]</a>
+    	</span>
+	</div>
+    <div>
+        <input name="keyword" type="text" placeholder="검색어를 입력해주세요" style="width:400px;">
+    <button>검색하기</button>
+    </div>
+</form>
+<br>
+
+	<div class="w3-center">
+			<!-- Pagination -->
+			<div class="w3-center w3-padding-32">
+				<div class="w3-bar">
+					<th:block th:each="num: ${#numbers.sequence(1,totalPages)}" th:if="${totalPages} > 0">
+						<a th:href="@{/getBoardList(page=${num})}"
+							class="w3-bar-item w3-button w3-theme w3-hover-theme w3-margin-right"
+							th:text="${num}"></a>
+					</th:block>
+				</div>
+			</div>
+		</div>
 </body>
 </html>

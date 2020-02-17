@@ -3,6 +3,9 @@ package com.club.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.club.domain.Activity_Board;
@@ -62,5 +65,24 @@ public class ActivityBoardServiceimpl implements ActivityBoardService {
 		// TODO Auto-generated method stub
 		activity_boardRepo.queryUpdateCnt(board.getBoard_no());
 	}
+
+	@Override
+	public Page<Activity_Board> getBoardPage(Pageable pageable) {
+		int page = (pageable.getPageNumber() == 0 ) ? 0 : (pageable.getPageNumber() - 1);
+		 pageable = PageRequest.of(page, 10);
+		 
+		 return (Page<Activity_Board>) activity_boardRepo.findAll(pageable);
+	}
+
+	@Override
+	public Page<Activity_Board> searchPosts(Pageable pageable, String keyword) {
+		// TODO Auto-generated method stub
+		int page = (pageable.getPageNumber() == 0 ) ? 0 : (pageable.getPageNumber() - 1);
+		 pageable = PageRequest.of(page, 10);
+		 
+		return (Page<Activity_Board>) activity_boardRepo.queryByKeyword(keyword, pageable);
+	}
+
+	
 
 }

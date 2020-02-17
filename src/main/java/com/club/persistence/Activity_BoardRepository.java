@@ -3,6 +3,8 @@ package com.club.persistence;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -27,4 +29,6 @@ public interface Activity_BoardRepository extends JpaRepository<Activity_Board, 
 	@Query(nativeQuery = true,value="update activity_board a set a.read_cnt=a.read_cnt+1 where a.activity_board_id=?1")
 	void queryUpdateCnt(@Param("board_no")Long board_no);
 	
+	@Query("SELECT c FROM Activity_Board c WHERE c.title=?1")
+	Page<Activity_Board> queryByKeyword(String keyword, Pageable pageable);
 }

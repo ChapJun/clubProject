@@ -2,6 +2,9 @@ package com.club.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.club.domain.Activity_Board;
 
 public interface ActivityBoardService {
@@ -19,6 +22,11 @@ public interface ActivityBoardService {
 	void deleteBoard(Activity_Board board);
 
 	List<Activity_Board> searchPosts(String keyword);
-
+	
+	Page<Activity_Board> searchPosts(Pageable pageable, String keyword);
+	
+	Page<Activity_Board> getBoardPage(org.springframework.data.domain.Pageable pagable);
+	
 	void cntPlus(Activity_Board board);
+
 }

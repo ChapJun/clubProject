@@ -1,9 +1,12 @@
 package com.club.controller;
-import java.util.List;
+import java.security.Principal;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.club.domain.Activity_Board;
+import com.club.domain.Person;
 import com.club.service.ActivityBoardService;
+import com.club.service.PersonService;
 
 @Controller
 public class Activity_BoardController {
@@ -20,27 +25,37 @@ public class Activity_BoardController {
 	@Autowired
 	ActivityBoardService activityBoardService;
 	
+	@Autowired
+	PersonService personService;
+	
 	@GetMapping("/getBoardList")
-	public String getBoardList(Model model, @RequestParam(value="keyword", required = false) String keyword) {
+	public String getBoardList(Model model, @RequestParam(value="keyword", required = false) String keyword,
+			@PageableDefault Pageable pageable) {
 		
-		List<Activity_Board> boardList;
-		
+		Page<Activity_Board> pageList;
 
 		if(keyword == null) {
-			boardList = activityBoardService.getBoardList();
+			pageList = activityBoardService.getBoardPage(pageable);
 		}
 		else {
-			boardList = activityBoardService.searchPosts(keyword);
+			pageList = activityBoardService.searchPosts(pageable, keyword);
 		}
 		
 		
-		model.addAttribute("boardList", boardList);
+		model.addAttribute("boardList", pageList);
+		model.addAttribute("totalPages", pageList.getTotalPages());
 		return "getBoardList";
 		
 	}
 	
 	@GetMapping("/insertBoard")
-	public String insertBoardView() {
+	public String insertBoardView(Model model, Principal prin) {
+		
+		String id = prin.getName();
+		Person person = personService.getPerson(id);
+		
+		model.addAttribute("username", person.getName());
+		
 		return "insertBoard";
 	}
 	
@@ -51,13 +66,19 @@ public class Activity_BoardController {
 	}
 	
 	@GetMapping("/getBoard")
-	public String getBoard(@RequestParam(value="board_no") Long board_no, Model model){
+	public String getBoard(@RequestParam(value="board_no") Long board_no, Model model,
+			Principal prin){
 		
 		Activity_Board board = activityBoardService.getBoard(board_no);
 		logger.info(board.toString());
 		activityBoardService.cntPlus(board);
 		
 		model.addAttribute("Activity_Board", board);
+		
+		String id = prin.getName();
+		Person person = personService.getPerson(id);
+		
+		model.addAttribute("username", person.getName());
 		
 		return "getBoard";
 	}
