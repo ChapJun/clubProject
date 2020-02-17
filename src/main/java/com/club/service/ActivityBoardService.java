@@ -18,4 +18,7 @@ public interface ActivityBoardService {
 
 	void deleteBoard(Activity_Board board);
 
+	List<Activity_Board> searchPosts(String keyword);
+
+	void cntPlus(Activity_Board board);
 }

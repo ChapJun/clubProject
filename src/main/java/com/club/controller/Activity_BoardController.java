@@ -1,27 +1,38 @@
 package com.club.controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.beans.factory.annotation.Autowired;
-import com.club.service.ActivityBoardService;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.club.domain.Activity_Board;
+import com.club.service.ActivityBoardService;
 
 @Controller
 public class Activity_BoardController {
 
+	Logger logger = LoggerFactory.getLogger(Activity_BoardController.class);
 	@Autowired
 	ActivityBoardService activityBoardService;
 	
 	@GetMapping("/getBoardList")
-	public String getBoardList(Model model) {
-		List<Activity_Board> boardList = activityBoardService.getBoardList();
+	public String getBoardList(Model model, @RequestParam(value="keyword", required = false) String keyword) {
+		
+		List<Activity_Board> boardList;
+		
+
+		if(keyword == null) {
+			boardList = activityBoardService.getBoardList();
+		}
+		else {
+			boardList = activityBoardService.searchPosts(keyword);
+		}
+		
 		
 		model.addAttribute("boardList", boardList);
 		return "getBoardList";
@@ -40,8 +51,14 @@ public class Activity_BoardController {
 	}
 	
 	@GetMapping("/getBoard")
-	public String getBoard(Activity_Board board, Model model) {
-		model.addAttribute("Activity_Board", activityBoardService.getBoard(board));
+	public String getBoard(@RequestParam(value="board_no") Long board_no, Model model){
+		
+		Activity_Board board = activityBoardService.getBoard(board_no);
+		logger.info(board.toString());
+		activityBoardService.cntPlus(board);
+		
+		model.addAttribute("Activity_Board", board);
+		
 		return "getBoard";
 	}
 	
@@ -56,5 +73,8 @@ public class Activity_BoardController {
 		activityBoardService.deleteBoard(board);
 		return "forward:getBoardList";
 	}
+	
+
+
 	
 }

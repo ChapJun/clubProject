@@ -49,5 +49,18 @@ public class ActivityBoardServiceimpl implements ActivityBoardService {
 	public List<Activity_Board> getTop5List() {
 		return activity_boardRepo.findTop5();
 	}
+	
+	@Override
+	public List<Activity_Board> searchPosts(String keyword) {
+		List<Activity_Board> boardEntities 
+		= activity_boardRepo.findByTitleContaining(keyword);
+		return boardEntities;
+	}
+
+	@Override
+	public void cntPlus(Activity_Board board) {
+		// TODO Auto-generated method stub
+		activity_boardRepo.queryUpdateCnt(board.getBoard_no());
+	}
 
 }

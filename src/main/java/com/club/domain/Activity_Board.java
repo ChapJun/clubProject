@@ -44,7 +44,7 @@ public class Activity_Board {
 	@Column(insertable=false, updatable=false, columnDefinition = "date default sysdate")
 	private Date regdate;
 	
-	@Column(insertable=false, updatable = false, columnDefinition = "number default 0")
+	@Column(insertable=false, columnDefinition = "number default 0")
 	private Long read_cnt;
 	@Column(columnDefinition = "varchar2(2000 BYTE)")
 	private String content;
