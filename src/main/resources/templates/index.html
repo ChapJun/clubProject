@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <title>Mingle With IDT</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -34,28 +35,30 @@ html, body, h1, h2, h3, h4, h5 {
 				$("#loginfrm").submit();
 			}
 		});
-		
+
 		$("#navbar").load("html/menu.html");
-		
+
 		submitAction = function() {
-		    var
-		    self = this,
-		    args = [].slice.apply(arguments);
-		    setTimeout(function() {
-		        doSomething.apply(self, args);
-		    }, 0);
-		    return false;
+			var self = this, args = [].slice.apply(arguments);
+			setTimeout(function() {
+				doSomething.apply(self, args);
+			}, 0);
+			return false;
 		};
-		
+
 	});
 </script>
 </head>
 <body class="w3-theme-l5">
 
-<p th:if="${param.error}"><script>alert("아이디 또는 패스워드가 다릅니다.");</script></p>
+	<p th:if="${param.error}">
+		<script>
+			alert("아이디 또는 패스워드가 다릅니다.");
+		</script>
+	</p>
 
 	<!-- Navbar -->
-	<nav id = "navbar"></nav>
+	<nav id="navbar"></nav>
 	<!-- Navbar on small screens -->
 	<div id="navDemo"
 		class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium w3-large">
@@ -72,7 +75,7 @@ html, body, h1, h2, h3, h4, h5 {
 		<!-- The Grid -->
 		<div class="w3-row">
 			<!-- Left Column -->
-			<div class="w3-col m3" style="margin-top:16px;">
+			<div class="w3-col m3" style="margin-top: 16px;">
 				<!-- Profile -->
 				<div class="w3-card w3-round w3-white">
 					<div class="w3-container w3-padding">
@@ -102,10 +105,10 @@ html, body, h1, h2, h3, h4, h5 {
 						<button onclick="myFunction('Demo1')"
 							class="w3-button w3-block w3-theme-l1 w3-left-align">
 							<i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i> My
-							Groups
+							Clubs
 						</button>
 						<div id="Demo1" class="w3-hide w3-container">
-							<p>Some text..</p>
+							<p>Please Login...</p>
 						</div>
 						<button onclick="myFunction('Demo2')"
 							class="w3-button w3-block w3-theme-l1 w3-left-align">
@@ -192,18 +195,18 @@ html, body, h1, h2, h3, h4, h5 {
 
 			<!-- Middle Column -->
 			<div class="w3-col m7">
-				<th:block th:each="act : ${actList}">
-				<div class="w3-container w3-card w3-white w3-round w3-margin">
-					<br> <img src="/w3images/avatar2.png" alt="Avatar"
-						class="w3-left w3-circle w3-margin-right" style="width: 60px">
-					<span class="w3-right w3-opacity" th:text="${#dates.format(act.regdate,'yyyy-MM-dd')}"></span>
-					<h4 th:text="${act.writer_name}"></h4>
-					<br>
-					<hr class="w3-clear">
-					<p th:text="${act.content}"></p>
-					<div class="w3-row-padding" style="margin: 0 -16px">
-					
-						<!--  
+				<th:block th:each="writer : ${writerList}">
+					<div class="w3-container w3-card w3-white w3-round w3-margin">
+						<br> <img th:src="${writer.Person.person_img}" alt="Avatar"
+							class="w3-left w3-circle w3-margin-right" style="width: 60px">
+						<span class="w3-right w3-opacity"
+							th:text="${#dates.format(writer.act_Board.regdate,'yyyy-MM-dd')}"></span>
+						<h4 th:text="${writer.act_Board.writer_name}"></h4>
+						<br>
+						<hr class="w3-clear">
+						<p th:text="${writer.act_Board.content}"></p>
+						<div class="w3-row-padding" style="margin: 0 -16px">
+							<!--  
 						<div class="w3-half">
 							<img src="/w3images/lights.jpg" style="width: 100%"
 								alt="Northern Lights" class="w3-margin-bottom">
@@ -213,14 +216,13 @@ html, body, h1, h2, h3, h4, h5 {
 								class="w3-margin-bottom">
 						</div>
 						-->
+						</div>
+						<button type="button"
+							class="w3-button w3-theme-d2 w3-margin-bottom">
+							<i class="fa fa-comment"></i>  Comment
+						</button>
 					</div>
-					<button type="button"
-						class="w3-button w3-theme-d2 w3-margin-bottom">
-						<i class="fa fa-comment"></i>  Comment
-					</button>
-				</div>
-			</th:block>
-				
+				</th:block>
 
 				<!-- End Middle Column -->
 			</div>

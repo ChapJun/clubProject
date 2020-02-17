@@ -26,4 +26,5 @@ public interface Activity_BoardRepository extends JpaRepository<Activity_Board, 
 	@Modifying
 	@Query(nativeQuery = true,value="update activity_board a set a.read_cnt=a.read_cnt+1 where a.activity_board_id=?1")
 	void queryUpdateCnt(@Param("board_no")Long board_no);
+	
 }

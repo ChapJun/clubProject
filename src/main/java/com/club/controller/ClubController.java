@@ -1,6 +1,7 @@
 package com.club.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -18,9 +19,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.club.domain.Club;
 import com.club.domain.Person;
 import com.club.domain.Registration;
+import com.club.domain.Schedule;
 import com.club.service.ClubService;
 import com.club.service.PersonService;
 import com.club.service.RegistrationService;
+import com.club.service.ScheduleService;
 
 @Controller
 public class ClubController {
@@ -34,6 +37,29 @@ public class ClubController {
 	@Autowired
 	private PersonService personService;
 	
+	@Autowired
+	private ScheduleService scheService;
+	
+	@GetMapping("/clubMain")
+	public void clubMain(Model model, @RequestParam(value="cname") String cname) {
+		
+		Club club = clubService.getClub(cname);
+		model.addAttribute("club", club);
+		
+		List<Schedule> scList = scheService.getScheduleList(club);
+		model.addAttribute("schedule", scList);
+		
+		List<Registration> regList = regiService.findRegiByClub(club.getCid());
+		
+		List<Person> perList = new ArrayList<>();
+		
+		for (Registration registration : regList) {
+			Person person = personService.findByPersonId(registration.getPerson().getPerson_id());
+			perList.add(person);
+		}
+		
+		model.addAttribute("people", perList);
+	}
 //	@GetMapping("/clubIntro")
 //	public void clubIntro(Model model, @RequestParam(value="category", required = false) String category) {
 //		
@@ -82,14 +108,7 @@ public class ClubController {
 		if(username != null)
 			person = personService.getPerson(username);
 		else
-			person = personService.getPerson("jun");
-		
-//		Club club = new Club();
-//		club.setCid((Long)param.get("cid"));
-//		club.setCname((String)param.get("cname"));
-//		club.setCategory((String)param.get("category"));
-//		club.setClub_img((String)param.get("club_img"));
-//		club.setContent((String)param.get("content"));
+			person = personService.getPerson("jun"); // null 처리
 		
 		Registration regi = new Registration();
 		regi.setPerson(person);

@@ -1,6 +1,7 @@
 
 package com.club.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +11,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.club.config.SecurityUser;
+import com.club.domain.Club;
 import com.club.domain.Person;
-import com.club.domain.Recruitment_Board;
 import com.club.persistence.PersonRepository;
 
 @Service
@@ -38,6 +39,18 @@ public class PersonService implements UserDetailsService {
 		Person person = optional.get();
 		
 		return person;
+	}
+	
+	public Person findByPersonId(Long person_id) {
+		
+		Optional<Person> person = perRepo.findById(person_id);
+		Person per = person.get();
+		
+		return per;
+	}
+	
+	public List<Club> getMyClubs(Long person_id) {
+		return perRepo.findMyClubs(person_id);
 	}
 
 

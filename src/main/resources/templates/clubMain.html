@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Mingle With IDT</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet"
+	href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
+<link rel='stylesheet'
+	href='https://fonts.googleapis.com/css?family=Open+Sans'>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+html, body, h1, h2, h3, h4, h5 {
+	font-family: "Open Sans", sans-serif
+}
+</style>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#navbar").load("html/menu.html");
+	});
+</script>
+</head>
+<body>
+
+	<!-- Navbar -->
+	<nav id="navbar"></nav>
+	<!-- Navbar on small screens -->
+	<div id="navDemo"
+		class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium w3-large">
+		<a href="#" class="w3-bar-item w3-button w3-padding-large">Link 1</a>
+		<a href="#" class="w3-bar-item w3-button w3-padding-large">Link 2</a>
+		<a href="#" class="w3-bar-item w3-button w3-padding-large">Link 3</a>
+		<a href="#" class="w3-bar-item w3-button w3-padding-large">My
+			Profile</a>
+	</div>
+
+
+
+	<!-- Page Container -->
+	<div class="w3-container w3-content"
+		style="max-width: 1800px; margin-top: 80px">
+		<h1 th:align="center" th:text="${club.cname}"></h1>
+		<!-- The Grid -->
+		<div class="w3-row">
+			<!-- Left Column -->
+			<div class="w3-col m3" style="margin-top: 16px;">
+				<div class="w3-card w3-round w3-white w3-hide-small">
+					<div class="w3-container">
+						<h3>모임 일정</h3>
+						<hr class="w3-clear">
+						
+						<th:block th:each="sche : ${schedule}">
+						<p th:text="${#dates.format(sche.wdate,'yyyy-MM-dd')}"></p>
+						<p th:text="${sche.location}"></p>
+						<p th:text="${sche.content}"></p>
+						<br>
+						</th:block>
+						
+					</div>
+				</div>
+				<br>
+			</div>
+
+			<!-- Middle Column -->
+			<div class="w3-col m7 w3-row-padding">
+
+				<div class="w3-container w3-card w3-white w3-round w3-margin">
+					<br>
+
+					<p>사진첩 예정</p>
+				</div>
+				<!-- End Middle Column -->
+			</div>
+			<div class="w3-col m2" style="margin-top: 16px;">
+				<div class="w3-card w3-round w3-white w3-center">
+					<div class="w3-container">
+						<h3>동호회원 목록</h3>
+						<th:block th:each="person : ${people}">
+						<p>이름</p>
+						<p th:text="${person.name}"></p>
+						</th:block>
+						<br>
+					</div>
+				</div>
+				<br>
+
+
+
+
+				<!-- End Right Column -->
+			</div>
+			<!-- End Grid -->
+		</div>
+
+		<!-- End Page Container -->
+
+	</div>
+	<br>
+	<!-- Footer -->
+	<footer class="w3-container w3-theme-d3 w3-padding-16">
+		<h5>Footer</h5>
+	</footer>
+
+	<footer class="w3-container w3-theme-d5">
+		<p>
+			Powered by <a href="https://www.w3schools.com/w3css/default.asp"
+				target="_blank">w3.css</a>
+		</p>
+	</footer>
+
+	<script>
+		// Accordion
+		function myFunction(id) {
+			var x = document.getElementById(id);
+			if (x.className.indexOf("w3-show") == -1) {
+				x.className += " w3-show";
+				x.previousElementSibling.className += " w3-theme-d1";
+			} else {
+				x.className = x.className.replace("w3-show", "");
+				x.previousElementSibling.className = x.previousElementSibling.className
+						.replace(" w3-theme-d1", "");
+			}
+		}
+
+		// Used to toggle the menu on smaller screens when clicking on the menu button
+		function openNav() {
+			var x = document.getElementById("navDemo");
+			if (x.className.indexOf("w3-show") == -1) {
+				x.className += " w3-show";
+			} else {
+				x.className = x.className.replace(" w3-show", "");
+			}
+		}
+	</script>
+
+</body>
+</html>

@@ -20,7 +20,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity security) throws Exception {
 
 		security.authorizeRequests().antMatchers("/").permitAll();
-		security.authorizeRequests().antMatchers("/main/**", "/clubIntro/**").authenticated();
+		security.authorizeRequests().antMatchers("/main/**", "/clubIntro/**", "/insertBoard/**").authenticated();
 		security.authorizeRequests().antMatchers("/manager/**").hasRole("MANAGER");
 
 		security.csrf().disable();

@@ -36,5 +36,5 @@ public class Club {
 	
 	@Column(columnDefinition = "number default 1")
 	private Long state;
-
+	
 }
