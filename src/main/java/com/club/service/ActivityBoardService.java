@@ -12,7 +12,7 @@ public interface ActivityBoardService {
 
 	void insertBoard(Activity_Board board);
 
-	Activity_Board getBoard(Activity_Board board);
+	Activity_Board getBoard(Long board_no);
 
 	void updateBoard(Activity_Board board);
 

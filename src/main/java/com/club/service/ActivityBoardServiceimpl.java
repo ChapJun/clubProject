@@ -26,8 +26,8 @@ public class ActivityBoardServiceimpl implements ActivityBoardService {
 	}
 
 	@Override
-	public Activity_Board getBoard(Activity_Board board) {
-		return activity_boardRepo.findById(board.getBoard_no()).get();
+	public Activity_Board getBoard(Long board_no) {
+		return activity_boardRepo.queryACtGetBoard(board_no).get();
 	}
 
 	@Override
