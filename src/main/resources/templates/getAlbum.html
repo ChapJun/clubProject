@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" href="style.css" />
+
+<title>앨범 상세</title>
+<meta http-equiv = "Content-Type" content ="text/html; charset=UTF-8">
+		<!-- 합쳐지고 최소화된 최신 CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+		<!-- 부가적인 테마 -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#navbar").load("html/menu.html");
+	});
+</script>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet"
+	href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
+<link rel='stylesheet'
+	href='https://fonts.googleapis.com/css?family=Open+Sans'>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+html, body, h1, h2, h3, h4, h5 {
+	font-family: "Open Sans", sans-serif
+}
+</style>
+
+
+</head>
+<body th:align="center">
+
+	 <nav id="navbar"></nav> 
+
+	<br>
+	<br>
+	
+<br>
+<h1>사진첩</h1>
+<div class="container">
+
+
+
+<form th:action="@{/updateAlbum}" method="post">
+		<input name="aid" type="hidden"
+			th:value="${Album.aid}">
+
+
+		<table th:align="center" border="1" th:cellpadding="0"
+			th:cellespacing="0" th:width="700">
+			<tr>
+				<img th:src="${Album.aname}"   width=600px, height=400px> <br><br>
+			</tr>
+			
+			<tr>
+				<td  th:text="등록일"></td>
+				<td th:text="${#dates.format(Album.wdate,'yyyy-MM-dd')}"></td>
+			</tr>
+			<tr> 
+				<td  th:text="장소"></td>
+				<td th:text="${Album.location}"></td>
+			</tr>
+		</table>
+			
+			</th:block>
+			
+	</form>
+
+
+
+</div>
+<br>
+<a th:href="@{/deleteAlbum(aid=${Album.aid})}"><button>글삭제</button></a>&nbsp;&nbsp;&nbsp;
+	<a th:href="@{/getAlbumList}"><button>글목록</button></a>
+</body>
+</html>
+
+
+
+
+

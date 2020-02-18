@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" href="style.css" />
+<title>글 목록</title>
+<meta http-equiv = "Content-Type" content ="text/html; charset=UTF-8">
+		<!-- 합쳐지고 최소화된 최신 CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+		<!-- 부가적인 테마 -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#navbar").load("html/menu.html");
+	});
+</script>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet"
+	href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
+<link rel='stylesheet'
+	href='https://fonts.googleapis.com/css?family=Open+Sans'>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+html, body, h1, h2, h3, h4, h5 {
+	font-family: "Open Sans", sans-serif
+}
+</style>
+
+
+</head>
+<body th:align="center">
+
+	 <nav id="navbar"></nav> 
+
+	<br>
+	<br>
+	
+<div class="container">
+<br>
+<h1>사진첩</h1>
+<br>
+<a th:href="getAlbumList"> <button class="btn pull-right">글목록</button></a>
+<br>
+<br>
+
+<form th:action="insertAlbum" method="post" enctype="multipart/form-data">
+			<table th:align="center" border="1" th:cellpadding="0"
+				th:cellespacing="0" th:width="700">
+				
+<!-- 				<tr> -->
+<!-- 					<td  th:text="사진" width="80"></td> -->
+<!-- 					<td><input name="aname" type="text" size="50"></td> -->
+<!-- 				</tr>		 -->
+				<tr>
+					<td th:text="장소"></td>
+					<td><textarea name="location" cols="50" rows="10"></textarea></td>
+				</tr>
+				<tr>
+					<td colspan="2" align="center"><input type="submit"
+						value="게시글 등록"></td>
+				</tr>
+
+			</table>
+		</form>
+</div>
+
+</body>
+</html>

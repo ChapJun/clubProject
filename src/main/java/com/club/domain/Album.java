@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -27,11 +29,15 @@ public class Album {
 	
 	@Column(columnDefinition = "varchar2(200 BYTE)")
 	private String location;
-	@Column(insertable=false, updatable = false, columnDefinition = "number default 0")
+	@Column(insertable=false, columnDefinition = "number default 0")
 	private Long good;
-	@Column(columnDefinition = "varchar2(200 BYTE)")
+	@Column(insertable=false, columnDefinition = "varchar2(200 BYTE) default 'img/Default-Album.jpg'")
 	private String aname;
 	@Temporal(value = TemporalType.TIMESTAMP)
 	@Column(insertable=false, updatable=false, columnDefinition = "date default sysdate")
 	private Date wdate;
+	
+	@ManyToOne
+	@JoinColumn(name="CLUB_ID")
+	private Club club;
 }

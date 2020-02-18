@@ -25,11 +25,11 @@ public class Club {
 	
 	@Column(unique=true, columnDefinition = "varchar2(50 BYTE)", nullable=false)
 	private String cname;
-	@Column(columnDefinition = "varchar2(200 BYTE) default 'img/Default-Club.png'")
+	@Column(insertable=false, columnDefinition = "varchar2(200 BYTE) default 'img/Default-Club.png'")
 	private String club_img;
 	@Column(columnDefinition = "varchar2(200 BYTE)")
 	private String intro;
-	@Column(columnDefinition = "varchar2(50 BYTE) default '기타'")
+	@Column(insertable=false, columnDefinition = "varchar2(50 BYTE) default '기타'")
 	private String category;
 	@Column(columnDefinition = "varchar2(2000 BYTE)")
 	private String content;

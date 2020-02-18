@@ -30,13 +30,13 @@ public class Person {
 	private String pw;
 	@Column(columnDefinition = "varchar2(50 BYTE)", nullable=false)
 	private String name;
-	@Column(columnDefinition = "varchar2(50 BYTE) default '010'")
+	@Column(insertable=false, columnDefinition = "varchar2(50 BYTE) default '010'")
 	private String tel;
-	@Column(columnDefinition = "varchar2(50 BYTE) default '무소속'")
+	@Column(insertable=false, columnDefinition = "varchar2(50 BYTE) default '무소속'")
 	private String belong;
-	@Column(columnDefinition = "varchar2(200 BYTE) default 'img/Default-Profile.png'")
+	@Column(insertable=false, columnDefinition = "varchar2(200 BYTE) default 'img/Default-Profile.png'")
 	private String person_img;
-	@Column(columnDefinition = "number default 1")
+	@Column(insertable=false, columnDefinition = "number default 1")
 	private Long authority;
 	@Column(columnDefinition = "varchar2(200 BYTE)")
 	private String intro;

@@ -18,7 +18,7 @@ import lombok.ToString;
 @Entity
 @Table(name="REGISTRATION")
 public class Registration {
-
+	
 	@Id
 	@GeneratedValue
 	private Long rid;
