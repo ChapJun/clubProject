@@ -1,6 +1,7 @@
 package com.club.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,21 @@ public class ScheduleService {
 	}
 	
 	public List<Schedule> getScheduleList(Club club) {
-		return (List<Schedule>) scheRepo.findByClub(club);
+		return (List<Schedule>) scheRepo.findByClubOrderByWdateDesc(club);
 	}
 	
+	public void insertSchedule(Schedule sche) {
+		scheRepo.save(sche);
+	}
+	
+	public Schedule getByIdSchedule(Long scid) {
+		
+		Optional<Schedule> sche = scheRepo.findByScId(scid);
+		return sche.get();
+			
+	}
+	
+	public void deleteSchedule(Long scid) {
+		scheRepo.deleteById(scid);
+	}
 }

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Mingle With IDT</title>
+</head>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet"
+	href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
+<link rel='stylesheet'
+	href='https://fonts.googleapis.com/css?family=Open+Sans'>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+html, body, h1, h2, h3, h4, h5 {
+	font-family: "Open Sans", sans-serif
+}
+</style>
+<body>
+
+	<!-- 
+	<th:block th:each="sche : ${scList}">
+		<p>
+			<i class="fa fa-clock-o fa-fw w3-margin-right"
+				style="font-size: 20px; color: #00498c;"></i> <span
+				style="font-size: 20px; font-weight: bold;"
+				th:text="${#dates.format(sche.wdate,'yyyy-MM-dd HH:mm')}"></span>
+		</p>
+		<p>
+			<i class="fa fa-map-marker fa-fw w3-margin-right"
+				style="font-size: 20px; color: #00498c;"></i> <span
+				style="font-size: 16px;" th:text="${sche.location}"></span>
+		</p>
+		<p>
+			<i class="fa fa-commenting  fa-fw w3-margin-right"
+				style="font-size: 20px; color: #00498c;"></i> <span
+				style="font-size: 16px;" th:text="${sche.content}"></span>
+		</p>
+		<br>
+	</th:block>
+	
+	 -->
+	<a th:href="@{/insertSchedule(cname=${club.cname})}"><button
+			class="w3-button w3-theme w3-margin-bottom">일정추가</button></a>
+
+	<div class="w3-container w3-card w3-white w3-margin-bottom">
+		<h2 class="w3-text-grey w3-padding-16">
+			<i class="fa fa-users fa-fw w3-margin-right w3-xxlarge "
+				style="color: #00498c;"></i>모임 일정
+		</h2>
+
+		<th:block th:each="sche : ${scList}">
+
+			<div class="w3-container">
+				<h4 class="w3-opacity">
+					<i class="fa fa-map-marker fa-fw w3-margin-right"
+						style="font-size: 20px; color: #00498c;"></i><b
+						th:text="${sche.location}"></b>
+				</h4>
+				<h5 style="color: #00498c;">
+					<i class="fa fa-calendar fa-fw w3-margin-right"></i><span
+						th:text="${#dates.format(sche.wdate,'yyyy-MM-dd HH:mm')}"></span>
+					<!-- <span class="w3-tag w3-light-blue w3-round">Current</span> -->
+				</h5>
+				<h6>
+					<i class="fa fa-commenting  fa-fw w3-margin-right"
+						style="font-size: 20px; color: #00498c;"></i><span
+						th:text="${sche.content}"></span>
+				</h6>
+				<br>
+				<a th:href="@{/insertSchedule(cname=${club.cname})}"><button
+			class="w3-button w3-theme w3-margin-bottom w3-margin-right">일정수정</button></a>
+			<a th:href="@{/deleteSchedule(cname=${club.cname}, scid=${sche.scid})}"><button
+			class="w3-button w3-theme w3-margin-bottom">일정삭제</button></a>
+				<!--  
+				<span
+					th:if="${sche.wdate.before(#dates.createNow())}">Past</span> 
+					<span
+					th:if="${sche.wdate.after(#dates.createNow())}">Future</span>
+				
+				<p th:text="${#dates.format(#dates.createToday(),'yyyy-MM-dd')}"></p>
+				<p th:text="${#dates.format(sche.wdate,'yyyy-MM-dd')}"></p>
+				
+				<p th:text="${{#dates.format(#dates.createToday(),'yyyy-MM-dd')} !=
+				#dates.format(sche.wdate,'yyyy-MM-dd')}"></p>
+				 -->
+				<hr>
+			</div>
+		</th:block>
+
+	</div>
+
+
+
+
+</body>
+</html>

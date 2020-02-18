@@ -32,6 +32,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		security.logout().invalidateHttpSession(true).logoutSuccessUrl("/");
 		
 		security.userDetailsService(personService);
+		security.headers().frameOptions().disable();
+		security.headers().frameOptions().sameOrigin();
 	}
 
 	/*

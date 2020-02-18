@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>일정 작성</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+	<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-light-blue.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<style>
+body, h1, h2, h3, h4, h5, h6 {
+	font-family: "Raleway", Arial, Helvetica, sans-serif
+}
+</style>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(".selector").flatpickr({
+			enableTime : true,
+			minDate:"today",
+			time_24hr: true
+		});
+	});
+</script>
+</head>
+<body>
+
+	
+	
+	 <h1 th:text="${club.cname} + '  모임 일정작성'"></h1> 
+	 <br> 
+
+	<form th:action="@{/insertSchedule}" method="post">
+	
+		<input type="hidden" name="cname" th:value="${club.cname}">		
+		<h5><i class="fa fa-calendar-check-o" style="font-size:20px;"></i>모임 날짜</h5>
+		<input class=" selector w3-input w3-border" type="text" placeholder="날짜를 입력해주세요.."
+			name="sdate" required data-input>
+			
+			<h5><i class="fa fa-map-marker" style="font-size:20px;"></i> 장소</h5>
+		<input class="w3-input w3-border" type="text"
+			placeholder="모임장소를 입력해주세요.." name="location">
+			<h5><i class="fa fa-commenting" style="font-size:20px;"></i> 내용</h5>
+		<input class="w3-input w3-border" type="text"
+			placeholder="내용을 입력해주세요.." name="content">
+		<br>
+		<p>
+			<button class="w3-button w3-block w3-theme-l2 w3-left-align"
+				type="submit">
+				<i class="fa fa-search w3-margin-right"></i> 등록
+			</button>
+		</p>
+			
+		<button class="w3-button w3-block w3-theme-l2 w3-left-align" type="reset">
+		<i class="fa fa-refresh w3-margin-right"></i> 리셋
+		</button>
+		
+	</form>
+	
+		<!-- 
+		<a class="input-button" title="toggle" data-toggle> <i
+			class="fa fa-calendar-check-o"></i>
+		</a> <a class="input-button" title="clear" data-clear> <i
+			class="fa fa-close"></i>
+		</a>
+	 	-->
+	
+
+</body>
+</html>

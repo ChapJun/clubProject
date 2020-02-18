@@ -16,13 +16,52 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
-html, body, h1, h2, h3, h4, h5 {
+html, body, h1, h2, h3, h4, h5, ul, li {
 	font-family: "Open Sans", sans-serif
+}
+
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #f1f1f1;
+	position: -webkit-sticky; /* Safari */
+	position: sticky;
+	top: 0;
+	font-weight: bold;
+}
+
+li {
+	float: left;
+}
+
+li a {
+	display: block;
+	color: black;
+	text-align: center;
+	padding: 8px 16px;
+	text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #555;
+  color: white;
+}
+
+li a.active {
+	background-color: #4ab6e0;
+	color: white;
 }
 </style>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#navbar").load("html/menu.html");
+
+		$(".active-class a").click(function() {
+			$(".active-class a").removeClass("active");
+			$(this).addClass("active");
+		});
 	});
 </script>
 </head>
@@ -40,107 +79,58 @@ html, body, h1, h2, h3, h4, h5 {
 			Profile</a>
 	</div>
 
-
-
 	<!-- Page Container -->
 	<div class="w3-container w3-content"
 		style="max-width: 1800px; margin-top: 80px">
 		<h1 th:align="center" th:text="${club.cname}"></h1>
-
-		<div class="w3-right">
-		<a th:href="@{/clubManage(cname=${club.cname})}" class="w3-button w3-padding-large w3-theme-d1" style="font-size:16px;"><i
-			class="fa fa-cog fa-fw w3-margin-right"
-			style="font-size:16px; color: white;"></i>동호회 관리</a>
-			</div>
-		
-
 		<!-- The Grid -->
 		<div class="w3-row">
 			<!-- Left Column -->
-			<div class="w3-col m3" style="margin-top: 16px;">
-				<div class="w3-card w3-round w3-white w3-hide-small">
-					<div class="w3-container">
-						<h3>모임 일정</h3>
-						<hr class="w3-clear">
-
-						<th:block th:each="sche : ${schedule}">
-							<p>
-								<i class="fa fa-clock-o fa-fw w3-margin-right"
-									style="font-size: 20px; color: #00498c;"></i> <span
-									style="font-size: 20px; font-weight: bold;"
-									th:text="${#dates.format(sche.wdate,'yyyy-MM-dd HH:mm')}"></span>
-							</p>
-							<p>
-								<i class="fa fa-map-marker fa-fw w3-margin-right"
-									style="font-size: 20px; color: #00498c;"></i> <span
-									style="font-size: 16px;" th:text="${sche.location}"></span>
-							</p>
-							<p>
-								<i class="fa fa-commenting  fa-fw w3-margin-right"
-									style="font-size: 20px; color: #00498c;"></i> <span
-									style="font-size: 16px;" th:text="${sche.content}"></span>
-							</p>
-							<br>
-						</th:block>
-
-					</div>
-				</div>
+			<div style="margin-top: 16px;">
+				<!-- Category -->
+				<ul>
+					<li class="active-class"><a class="active"
+						th:href="@{/scheduleManage(cname=${club.cname})}" target="frame">일정
+							관리</a></li>
+					<li class="active-class"><a
+						th:href="@{/scheduleManage(cname=${club.cname})}" target="frame">사진첩
+							관리</a></li>
+					<li class="active-class"><a
+						th:href=@{/memberManage(cname=${club.cname})} target="frame">동호회원
+							관리</a></li>
+				</ul>
+				<hr class="w3-clear">
 				<br>
 			</div>
+			<iframe width="1770" height="600"
+				th:src="@{/scheduleManage(cname=${club.cname})}" name="frame"
+				id="frame" frameborder="0" framespacing="0" marginheight="0" marginwidth="0"
+				scrolling="yes" vspace="0" align="left"> 이 브라우저는 iframe을 지원하지
+				않습니다</iframe>
 
-			<!-- Middle Column -->
-			<div class="w3-col m7 w3-row-padding">
-
-				<div class="w3-container w3-card w3-white w3-round w3-margin">
-					<br>
-					<p>사진첩 예정</p>
-				</div>
-				<!-- End Middle Column -->
-			</div>
-			<div class="w3-col m2" style="margin-top: 16px;">
-				<div class="w3-card w3-round w3-white w3-center">
-					<div class="w3-container"
-						style="max-height: 400px; overflow: auto;">
-						<h3>동호회원 목록</h3>
-						<hr class="w3-clear">
-						<th:block th:each="person : ${people}">
-							<p class="w3-left">
-								<img th:src="${person.person_img}" class="w3-circle"
-									style="height: 55px; width: 55px" alt="Avatar"> <span
-									th:text="${person.name}"></span>
-							</p>
-							<br>
-						</th:block>
-						<br>
-					</div>
-				</div>
-				<br>
-
-
-
-
-				<!-- End Right Column -->
-			</div>
-			<!-- End Grid -->
 		</div>
-
-		<!-- End Page Container -->
-
 	</div>
+	<br>
+
+
+
+
+	<!-- End Grid -->
+
+	<!-- End Page Container -->
+	<hr>
 	<br>
 	<!-- Footer -->
 	<footer class="w3-container w3-theme-d3 w3-padding-16">
 		<h5>Footer</h5>
 	</footer>
-
 	<footer class="w3-container w3-theme-d5">
 		<p>
 			Powered by <a href="https://www.w3schools.com/w3css/default.asp"
 				target="_blank">w3.css</a>
 		</p>
 	</footer>
-
-	<script>
+	<script type="text/javascript">
 		// Accordion
 		function myFunction(id) {
 			var x = document.getElementById(id);
@@ -164,6 +154,5 @@ html, body, h1, h2, h3, h4, h5 {
 			}
 		}
 	</script>
-
 </body>
 </html>

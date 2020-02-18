@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -40,4 +41,10 @@ public class Schedule {
 	@ManyToOne
 	@JoinColumn(name="CLUB_ID")
 	private Club club;
+	
+	@Transient
+	private String sdate;
+	
+	@Transient
+	private String cname;
 }
