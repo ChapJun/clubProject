@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -40,5 +41,8 @@ public class Activity_Board_Comment {
 	@ManyToOne
 	@JoinColumn(name="ACTIVITY_BOARD_ID")
 	private Activity_Board board;
+	
+	@Transient
+	private Long board_no;
 	
 }

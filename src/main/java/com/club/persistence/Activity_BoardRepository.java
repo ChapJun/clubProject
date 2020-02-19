@@ -23,12 +23,12 @@ public interface Activity_BoardRepository extends JpaRepository<Activity_Board, 
 	Optional<Activity_Board> queryACtGetBoard(Long board_no);
 	
 	List<Activity_Board> findByTitleContaining(String keyword);
-
+	
 	@Transactional
 	@Modifying
 	@Query(nativeQuery = true,value="update activity_board a set a.read_cnt=a.read_cnt+1 where a.activity_board_id=?1")
 	void queryUpdateCnt(@Param("board_no")Long board_no);
 	
-	@Query("SELECT c FROM Activity_Board c WHERE c.title=?1")
+	@Query("SELECT c FROM Activity_Board c WHERE c.title like %?1%")
 	Page<Activity_Board> queryByKeyword(String keyword, Pageable pageable);
 }

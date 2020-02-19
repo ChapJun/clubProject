@@ -4,15 +4,18 @@
 <title>게시글 상세</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- 합쳐지고 최소화된 최신 CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <!-- 부가적인 테마 -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#navbar").load("html/menu.html");
+		commentList();
 	});
 </script>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -32,9 +35,9 @@ html, body, h1, h2, h3, h4, h5 {
 </head>
 <body th:align="center">
 
-	 <nav id="navbar"></nav> 
+	<nav id="navbar"></nav>
 
-	
+
 	<br>
 	<br>
 	<br>
@@ -48,32 +51,32 @@ html, body, h1, h2, h3, h4, h5 {
 			th:cellespacing="0" th:width="700">
 
 			<tr>
-				<td  th:text="제목" width="80"></td>
+				<td th:text="제목" width="80"></td>
 				<td><input name="title" type="text"
 					th:value="${Activity_Board.title}"></td>
 			</tr>
 			<tr>
-				<td  th:text="작성자"></td>
+				<td th:text="작성자"></td>
 				<td th:text="${Activity_Board.writer_name}"></td>
 			</tr>
 			<tr>
-				<td  th:text="내용"></td>
+				<td th:text="내용"></td>
 				<td><textarea name="content"
 						th:text="${Activity_Board.content}" cols="40" rows="10"></textarea></td>
 			</tr>
 			<tr>
-				<td  th:text="등록일"></td>
+				<td th:text="등록일"></td>
 				<td th:text="${#dates.format(Activity_Board.regdate,'yyyy-MM-dd')}"></td>
 			</tr>
 			<tr>
-				<td  th:text="조회수"></td>
+				<td th:text="조회수"></td>
 				<td th:text="${Activity_Board.read_cnt}"></td>
 			</tr>
 			<th:block th:if="${username} == ${Activity_Board.writer_name}">
-			<tr>
-				<td colspan="2" align="center"><input type="submit"
-					value="게시글 수정"></td>
-			</tr>
+				<tr>
+					<td colspan="2" align="center"><input type="submit"
+						value="게시글 수정"></td>
+				</tr>
 			</th:block>
 		</table>
 	</form>
@@ -82,5 +85,41 @@ html, body, h1, h2, h3, h4, h5 {
 	<br>
 	<a th:href="@{/deleteBoard(board_no=${Activity_Board.board_no})}"><button>글삭제</button></a>&nbsp;&nbsp;&nbsp;
 	<a th:href="@{/getBoardList}"><button>글목록</button></a>
+
+	<!--  댓글  -->
+	<div class="container">
+		<label for="content"></label>
+		<form name="commentInsertForm" th:action="@{/insertComment}"
+			method="post">
+			<div class="input-group">
+
+				<input type="hidden" name="board_no"
+					th:value="${Activity_Board.board_no}" /> <input type="text"
+					class="form-control" id="content" name="content"
+					placeholder="댓글을 입력하세요."> <span class="input-group-btn">
+					<button class="btn btn-default" type="submit"
+						name="commentInsertBtn">등록</button>
+				</span>
+			</div>
+		</form>
+		<hr>
+	</div>
+	<br>
+	<div class="container">
+		<table>
+			<th:block th:each="comment : ${commentList}" th:if="${Activity_Board.board_no} == ${comment.board.board_no}">
+				<tr>
+					<td width="200" th:text="${comment.cmt_name}"></td>
+					<td width="900" th:text="${comment.content}"></td>
+					<td width="200" th:text="${#dates.format(comment.cmt_regdate,'yyyy-MM-dd HH:mm')}"></td>
+				</tr>
+			</th:block>
+		</table>
+
+	</div>
+
+
+
+
 </body>
 </html>
