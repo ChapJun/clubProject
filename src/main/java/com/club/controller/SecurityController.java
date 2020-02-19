@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.club.domain.Activity_Board;
 import com.club.domain.Club;
 import com.club.domain.Person;
+import com.club.domain.Registration;
 import com.club.obj.Writer;
 import com.club.service.ActivityBoardService;
 import com.club.service.PersonService;
@@ -52,8 +53,10 @@ public class SecurityController {
 
 		model.addAttribute("person", person);
 		
-		List<Club> myClubs = personService.getMyClubs(person.getPerson_id());
-		model.addAttribute("myClubs", myClubs);
+		List<Registration> myRegi = personService.getMyRegistration(person.getPerson_id());
+		
+//		List<Club> myClubs = personService.getMyClubs(person.getPerson_id());
+		model.addAttribute("myRegi", myRegi);
 		
 		List<Activity_Board> actList = activityService.getTop5List();
 		List<Writer> writerList = new ArrayList<>();

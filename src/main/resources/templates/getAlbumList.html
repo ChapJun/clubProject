@@ -12,11 +12,6 @@
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script type="text/javascript">
-	$(document).ready(function() {
-		$("#navbar").load("html/menu.html");
-	});
-</script>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet"
 	href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
@@ -57,18 +52,9 @@ div .desc {
 
 </head>
 <body th:align="center">
-
-	 <nav id="navbar"></nav> 
-
-	<br>
-	<br>
-	
-<br>
-<h1>사진첩</h1>
 <div class="container">
-<br>
-<a th:href="getAlbumList"> <button class="btn pull-right">글목록</button></a>
-<a th:href="insertAlbum"> <button class="btn pull-right w3-margin-right">글작성</button></a>
+<a th:href="@{/getAlbumList(cname=${club.cname})}"> <button class="btn pull-right">글목록</button></a>
+<a th:href="@{/insertAlbum(cname=${club.cname})}"> <button class="btn pull-right w3-margin-right">글작성</button></a>
 <br>
 <br>
 
@@ -83,7 +69,7 @@ div .desc {
 
 
 <div class="gallery" th:each="Album : ${albumList}">
- <div><a th:href="@{/getAlbum(aid=${Album.aid})}">
+ <div><a th:href="@{/getAlbum(aid=${Album.aid}, cname=${club.cname})}">
 			<img th:src="${Album.aname}"></a></div>
  <div th:text="${#dates.format(Album.wdate,'yyyy-MM-dd')}"></div>
  <div th:text="${Album.location}"></div>

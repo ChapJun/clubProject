@@ -40,13 +40,52 @@ public class ScheduleController {
 		model.addAttribute("scList", scList);
 
 	}
+	
+	@GetMapping("/updateSchedule")
+	public String updateScheduleView(Model model, @RequestParam(value = "cname") String cname,
+			@RequestParam(value="scid") Long scid) {
 
+		Club club = clubService.getClub(cname);
+		model.addAttribute("club", club);
+		
+		Schedule sche = scheService.getByIdSchedule(scid);
+		
+		Date from = sche.getWdate();
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		String sdate = transFormat.format(from);
+		
+		sche.setSdate(sdate);
+		model.addAttribute("sche", sche);
+		
+		return "updateSchedule";
+	}
+
+	@PostMapping("/updateSchedule")
+	public String updateSchedule(Schedule schedule, RedirectAttributes attr) {
+
+		String from = schedule.getSdate();
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+		try {
+			Date wdate = transFormat.parse(from);
+			schedule.setWdate(wdate);
+
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		attr.addAttribute("cname", schedule.getCname());
+		scheService.updateSchedule(schedule);
+		
+		return "redirect:scheduleManage";
+	}
+	
 	@GetMapping("/deleteSchedule")
 	public String deleteSchedule(Model model, @RequestParam(value = "cname") String cname,
 			@RequestParam(value = "scid") Long scid, RedirectAttributes attr) {
 
 		scheService.deleteSchedule(scid);
-		
 		attr.addAttribute("cname", cname);
 		
 		return "redirect:scheduleManage";
@@ -82,8 +121,9 @@ public class ScheduleController {
 //		logger.info(schedule.toString());
 
 		attr.addAttribute("cname", schedule.getCname());
-
 		scheService.insertSchedule(schedule);
+		
+		
 		return "redirect:scheduleManage";
 	}
 

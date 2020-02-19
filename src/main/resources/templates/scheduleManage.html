@@ -73,8 +73,10 @@ html, body, h1, h2, h3, h4, h5 {
 						th:text="${sche.content}"></span>
 				</h6>
 				<br>
-				<a th:href="@{/insertSchedule(cname=${club.cname})}"><button
+				
+				<a th:href="@{/updateSchedule(cname=${club.cname}, scid=${sche.scid})}"><button
 			class="w3-button w3-theme w3-margin-bottom w3-margin-right">일정수정</button></a>
+			
 			<a th:href="@{/deleteSchedule(cname=${club.cname}, scid=${sche.scid})}"><button
 			class="w3-button w3-theme w3-margin-bottom">일정삭제</button></a>
 				<!--  

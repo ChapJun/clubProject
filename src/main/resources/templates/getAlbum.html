@@ -12,11 +12,6 @@
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script type="text/javascript">
-	$(document).ready(function() {
-		$("#navbar").load("html/menu.html");
-	});
-</script>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet"
 	href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
@@ -34,16 +29,8 @@ html, body, h1, h2, h3, h4, h5 {
 </head>
 <body th:align="center">
 
-	 <nav id="navbar"></nav> 
-
-	<br>
-	<br>
-	
 <br>
-<h1>사진첩</h1>
 <div class="container">
-
-
 
 <form th:action="@{/updateAlbum}" method="post">
 		<input name="aid" type="hidden"
@@ -53,7 +40,7 @@ html, body, h1, h2, h3, h4, h5 {
 		<table th:align="center" border="1" th:cellpadding="0"
 			th:cellespacing="0" th:width="700">
 			<tr>
-				<img th:src="${Album.aname}"   width=600px, height=400px> <br><br>
+				<img th:src="${Album.aname}" width=600px, height=400px> <br><br>
 			</tr>
 			
 			<tr>
@@ -74,8 +61,8 @@ html, body, h1, h2, h3, h4, h5 {
 
 </div>
 <br>
-<a th:href="@{/deleteAlbum(aid=${Album.aid})}"><button>글삭제</button></a>&nbsp;&nbsp;&nbsp;
-	<a th:href="@{/getAlbumList}"><button>글목록</button></a>
+<a th:href="@{/deleteAlbum(aid=${Album.aid}, cname=${club.cname})}"><button>글삭제</button></a>&nbsp;&nbsp;&nbsp;
+	<a th:href="@{/getAlbumList(cname=${club.cname})}"><button>글목록</button></a>
 </body>
 </html>
 

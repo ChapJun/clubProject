@@ -11,6 +11,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -31,7 +34,7 @@ public class Album {
 	private String location;
 	@Column(insertable=false, columnDefinition = "number default 0")
 	private Long good;
-	@Column(insertable=false, columnDefinition = "varchar2(200 BYTE) default 'img/Default-Album.jpg'")
+	@Column(columnDefinition = "varchar2(200 BYTE) default 'img/Default-Album.jpg'")
 	private String aname;
 	@Temporal(value = TemporalType.TIMESTAMP)
 	@Column(insertable=false, updatable=false, columnDefinition = "date default sysdate")
@@ -40,4 +43,7 @@ public class Album {
 	@ManyToOne
 	@JoinColumn(name="CLUB_ID")
 	private Club club;
+	
+	@Transient
+	private MultipartFile file;
 }

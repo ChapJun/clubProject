@@ -35,27 +35,29 @@ body, h1, h2, h3, h4, h5, h6 {
 
 	
 	
-	 <h1 th:text="${club.cname} + '  모임 일정작성'"></h1> 
+	 <h1 th:text="${club.cname} + '  모임 일정수정'"></h1> 
 	 <br> 
 
-	<form th:action="@{/insertSchedule}" method="post">
+	<form th:action="@{/updateSchedule}" method="post">
 	
 		<input type="hidden" name="cname" th:value="${club.cname}">		
+		<input type="hidden" name="scid" th:value="${sche.scid}">
+		
 		<h5><i class="fa fa-calendar-check-o" style="font-size:20px;"></i>모임 날짜</h5>
 		<input class=" selector w3-input w3-border" type="text" placeholder="날짜를 입력해주세요.."
-			name="sdate" required data-input>
+			name="sdate" required data-input th:value="${sche.sdate}">
 			
 			<h5><i class="fa fa-map-marker" style="font-size:20px;"></i> 장소</h5>
 		<input class="w3-input w3-border" type="text"
-			placeholder="모임장소를 입력해주세요.." name="location">
+			placeholder="모임장소를 입력해주세요.." name="location" th:value = "${sche.location}">
 			<h5><i class="fa fa-commenting" style="font-size:20px;"></i> 내용</h5>
 		<input class="w3-input w3-border" type="text"
-			placeholder="내용을 입력해주세요.." name="content">
+			placeholder="내용을 입력해주세요.." name="content" th:value="${sche.content}">
 		<br>
 		<p>
 			<button class="w3-button w3-block w3-theme-l2 w3-left-align"
 				type="submit">
-				<i class="fa fa-pencil w3-margin-right"></i> 등록
+				<i class="fa fa-pencil w3-margin-right"></i> 수정
 			</button>
 		</p>
 			

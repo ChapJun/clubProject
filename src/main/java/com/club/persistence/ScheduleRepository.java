@@ -11,8 +11,10 @@ import com.club.domain.Schedule;
 
 public interface ScheduleRepository extends JpaRepository<Schedule, Long>{
 	
+//	@Query("select s from Schedule s where rownum <= 4 order by s.wdate desc")
 	List<Schedule> findAll();
-	List<Schedule> findByClubOrderByWdateDesc(Club club);
+	
+	List<Schedule> findTop4ByClubOrderByWdateAsc(Club club);
 	
 	@Query("select s from Schedule s where s.scid=?1")
 	Optional<Schedule> findByScId(Long scid);

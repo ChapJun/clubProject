@@ -31,6 +31,6 @@ public class Registration {
 	@JoinColumn(name="CLUB_ID")
 	private Club club;
 	
-	@Column(columnDefinition = "number(1,0) default 0")
-	private boolean enabled;
+	@Column(columnDefinition = "number default 0")
+	private Long enabled;
 }

@@ -15,6 +15,8 @@
 	href='https://fonts.googleapis.com/css?family=Open+Sans'>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
 <style>
 html, body, h1, h2, h3, h4, h5 {
 	font-family: "Open Sans", sans-serif
@@ -47,12 +49,14 @@ html, body, h1, h2, h3, h4, h5 {
 		style="max-width: 1800px; margin-top: 80px">
 		<h1 th:align="center" th:text="${club.cname}"></h1>
 
-		<div class="w3-right">
-		<a th:href="@{/clubManage(cname=${club.cname})}" class="w3-button w3-padding-large w3-theme-d1" style="font-size:16px;"><i
-			class="fa fa-cog fa-fw w3-margin-right"
-			style="font-size:16px; color: white;"></i>동호회 관리</a>
-			</div>
-		
+		<div class="w3-right" th:if="${regi.enabled} == 2">
+			<a th:href="@{/clubManage(cname=${club.cname})}"
+				class="w3-button w3-padding-large w3-theme-d1"
+				style="font-size: 16px;"><i
+				class="fa fa-cog fa-fw w3-margin-right"
+				style="font-size: 16px; color: white;"></i>동호회 관리</a>
+		</div>
+
 
 		<!-- The Grid -->
 		<div class="w3-row">
@@ -91,25 +95,57 @@ html, body, h1, h2, h3, h4, h5 {
 			<!-- Middle Column -->
 			<div class="w3-col m7 w3-row-padding">
 
-				<div class="w3-container w3-card w3-white w3-round w3-margin">
-					<br>
-					<p>사진첩 예정</p>
+				<div class="w3-container w3-card w3-white w3-round w3-margin"
+					>
+					<div class="w3-row-padding">
+						<br>
+						<th:block th:each="Album : ${albumList}">
+							<div class="w3-third w3-container w3-margin-bottom">
+								<img th:src="${Album.aname}" alt="Error"
+									style="width: 100%; height: 186px;" class="w3-hover-opacity">
+								<div class="w3-container" style="background-color: #f1f1f1">
+									<p>
+										<b th:text="${#dates.format(Album.wdate,'yyyy-MM-dd')}"></b>
+									</p>
+									<p th:text="${Album.location}"></p>
+								</div>
+							</div>
+						</th:block>
+					</div>
+					<!-- Pagination -->
+					<div class="w3-center w3-padding-32">
+						<div class="w3-bar">
+							<th:block th:each="num: ${#numbers.sequence(1,totalPages)}"
+								th:if="${totalPages} >0">
+
+								<a th:href="@{/clubMain(page=${num}, cname=${club.cname})}"
+									class= "w3-margin-right w3-bar-item w3-black w3-button" th:text="${num}"></a>
+							</th:block>
+						</div>
+					</div>
 				</div>
 				<!-- End Middle Column -->
 			</div>
 			<div class="w3-col m2" style="margin-top: 16px;">
 				<div class="w3-card w3-round w3-white w3-center">
 					<div class="w3-container"
-						style="max-height: 400px; overflow: auto;">
+						style="max-height: 710px; overflow: auto;">
 						<h3>동호회원 목록</h3>
 						<hr class="w3-clear">
-						<th:block th:each="person : ${people}">
-							<p class="w3-left">
-								<img th:src="${person.person_img}" class="w3-circle"
+						<th:block th:each="cap : ${caps}">
+							<p align="left">
+								<img th:src="${cap.person_img}" class="w3-circle"
 									style="height: 55px; width: 55px" alt="Avatar"> <span
-									th:text="${person.name}"></span>
+									th:text="${cap.name}"></span> <i class="fas fa-crown"
+									style="font-size: 24px; color: #DBA901"></i>
 							</p>
-							<br>
+						</th:block>
+						<th:block th:each="mem : ${members}">
+							<p align="left">
+								<img th:src="${mem.person_img}" class="w3-circle"
+									style="height: 55px; width: 55px" alt="Avatar"> <span
+									th:text="${mem.name}"></span>
+							</p>
 						</th:block>
 						<br>
 					</div>

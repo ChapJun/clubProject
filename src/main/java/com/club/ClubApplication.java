@@ -1,10 +1,9 @@
 package com.club;
 
+import java.io.File;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 @SpringBootApplication
 //@EnableJpaRepositories("com.club.persistence")
 //@EnableAutoConfiguration(exclude=DataSourceAutoConfiguration.class)
@@ -13,8 +12,6 @@ public class ClubApplication {
 	public static void main(String[] args) {
 		
 		SpringApplication.run(ClubApplication.class, args);
-		
-		
 	}
 	
 	

@@ -2,9 +2,13 @@ package com.club.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.club.domain.Album;
+import com.club.domain.Club;
 import com.club.persistence.AlbumRepository;
 
 
@@ -44,6 +48,22 @@ public class AlbumServiceimpl implements AlbumService{
 	@Override
 	public Album getAlbum(Long aid) {
 		return albumRepo.queryACtGetAlbum(aid).get();
+	}
+
+	@Override
+	public List<Album> getAlbumListByClub(Club club) {
+		
+		List<Album> aList = albumRepo.findByClub(club);
+		return aList;
+	}
+
+	@Override
+	public Page<Album> getAlbumPageByClub(Pageable pageable, Club club) {
+		
+		int page = (pageable.getPageNumber() == 0 ) ? 0 : (pageable.getPageNumber() - 1);
+		 pageable = PageRequest.of(page, 6);
+		
+		 return (Page<Album>) albumRepo.findAll(pageable);
 	}
 
 	

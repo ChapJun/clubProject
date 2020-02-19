@@ -2,7 +2,11 @@ package com.club.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.club.domain.Album;
+import com.club.domain.Club;
 
 public interface AlbumService {
 	
@@ -16,6 +20,8 @@ public interface AlbumService {
 
 	void deleteAlbum(Album board);
 
-
+	List<Album> getAlbumListByClub(Club club);
+	
+	Page<Album> getAlbumPageByClub(Pageable pageable, Club club);
 
 }

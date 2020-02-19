@@ -1,11 +1,141 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Mingle With IDT</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/list.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet"
+	href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
+<link rel='stylesheet'
+	href='https://fonts.googleapis.com/css?family=Open+Sans'>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
+</head>
+<style>
+html, body, h1, h2, h3, h4, h5 {
+	font-family: "Open Sans", sans-serif
+}
+</style>
 </head>
 <body>
+	<!-- Page Container -->
+	<div class="w3-container w3-content"
+		style="max-width: 1800px; margin-top: 20px">
 
-<h1>member</h1>
+		<!-- The Grid -->
+		<div class="w3-row">
+			<!-- Left Column -->
+			<div class="w3-col m3" style="margin-top: 16px;">
+				<div class="w3-card w3-round w3-white w3-hide-small">
+					<div class="w3-container">
+						<h2>회원가입 신청목록</h2>
+						<hr class="w3-clear">
+
+						<ul>
+							<th:block th:each="applyPerson : ${applyPeople}">
+								<li><p>
+										<img th:src="${applyPerson.person_img}" class="w3-circle"
+											style="height: 40px; width: 40px" alt="Avatar"> <span
+											th:text="${applyPerson.name}"></span>
+									</p> <a
+									th:href="@{approvalMember(cname=${club.cname}, pid=${applyPerson.person_id})}"><i
+										class="fa fa-check-circle fa-fw w3-margin-right"
+										style="font-size: 24px; color: green"></i></a> <a
+									th:href="@{refuseMember(cname=${club.cname}, pid=${applyPerson.person_id})}"><i
+										class="fa fa-ban fa-fw w3-margin-right"
+										style="font-size: 24px; color: red"></i></a> <br> <br></li>
+							</th:block>
+						</ul>
+					</div>
+				</div>
+				<br>
+			</div>
+
+			<!-- Middle Column -->
+			<div class="w3-col m7 w3-row-padding">
+
+				<div class="w3-container w3-card w3-white w3-round w3-margin">
+					<div class="w3-container">
+						<h2>동호회원 목록</h2>
+						<hr class="w3-clear">
+						<ul>
+
+							<th:block th:each="capPerson : ${capPeople}">
+								<li><p>
+										<img th:src="${capPerson.person_img}" class="w3-circle"
+											style="height: 40px; width: 40px" alt="Avatar"> <span
+											th:text="${capPerson.name}"></span> <i class="fas fa-crown"
+											style="font-size: 24px; color: #DBA901"></i>
+									</p> <!--  
+									<a
+									th:href="@{approvalMember(cname=${club.cname}, pid=${applyPerson.person_id})}"><i
+										class="fa fa-check-circle fa-fw w3-margin-right"
+										style="font-size: 24px; color: green"></i></a> <a href="#"><i
+										class="fa fa-ban fa-fw w3-margin-right"
+										style="font-size: 24px; color: red"></i></a> <br>
+										--></li>
+							</th:block>
+
+
+							<th:block th:each="memberPerson : ${memberPeople}">
+								<li><p>
+										<img th:src="${memberPerson.person_img}" class="w3-circle"
+											style="height: 40px; width: 40px" alt="Avatar"> <span
+											th:text="${memberPerson.name}" class="w3-margin-right"></span><a
+									th:href="@{/refuseMember(cname=${club.cname}, pid=${memberPerson.person_id})}"><i
+										class="fas fa-sign-out-alt fa-fw"
+										style="font-size: 24px; color: red"></i></a>
+									</p> 
+							</th:block>
+						</ul>
+					</div>
+					<!-- End Middle Column -->
+				</div>
+
+				<br>
+
+				<!-- End Right Column -->
+			</div>
+			<!-- End Grid -->
+		</div>
+
+		<!-- End Page Container -->
+
+	</div>
+	<br>
+
+	<script>
+		// Accordion
+		function myFunction(id) {
+			var x = document.getElementById(id);
+			if (x.className.indexOf("w3-show") == -1) {
+				x.className += " w3-show";
+				x.previousElementSibling.className += " w3-theme-d1";
+			} else {
+				x.className = x.className.replace("w3-show", "");
+				x.previousElementSibling.className = x.previousElementSibling.className
+						.replace(" w3-theme-d1", "");
+			}
+		}
+
+		// Used to toggle the menu on smaller screens when clicking on the menu button
+		function openNav() {
+			var x = document.getElementById("navDemo");
+			if (x.className.indexOf("w3-show") == -1) {
+				x.className += " w3-show";
+			} else {
+				x.className = x.className.replace(" w3-show", "");
+			}
+		}
+	</script>
+
 </body>
 </html>

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.club.config.SecurityUser;
 import com.club.domain.Club;
 import com.club.domain.Person;
+import com.club.domain.Registration;
 import com.club.persistence.PersonRepository;
 
 @Service
@@ -53,5 +54,8 @@ public class PersonService implements UserDetailsService {
 		return perRepo.findMyClubs(person_id);
 	}
 
+	public List<Registration> getMyRegistration(Long person_id) {
+		return perRepo.findMyRegistration(person_id);
+	}
 
 }

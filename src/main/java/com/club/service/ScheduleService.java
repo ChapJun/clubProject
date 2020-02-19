@@ -1,5 +1,6 @@
 package com.club.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,7 +22,7 @@ public class ScheduleService {
 	}
 	
 	public List<Schedule> getScheduleList(Club club) {
-		return (List<Schedule>) scheRepo.findByClubOrderByWdateDesc(club);
+		return (List<Schedule>) scheRepo.findTop4ByClubOrderByWdateAsc(club);
 	}
 	
 	public void insertSchedule(Schedule sche) {
@@ -37,5 +38,16 @@ public class ScheduleService {
 	
 	public void deleteSchedule(Long scid) {
 		scheRepo.deleteById(scid);
+	}
+	
+	public void updateSchedule(Schedule sche) {
+		
+		Schedule schedule = getByIdSchedule(sche.getScid());
+		
+		schedule.setWdate(sche.getWdate());
+		schedule.setContent(sche.getContent());
+		schedule.setLocation(sche.getLocation());
+		
+		scheRepo.save(schedule);
 	}
 }

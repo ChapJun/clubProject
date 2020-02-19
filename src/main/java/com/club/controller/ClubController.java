@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.club.domain.Album;
 import com.club.domain.Club;
 import com.club.domain.Person;
 import com.club.domain.Registration;
 import com.club.domain.Schedule;
+import com.club.service.AlbumService;
 import com.club.service.ClubService;
 import com.club.service.PersonService;
 import com.club.service.RegistrationService;
@@ -39,30 +41,20 @@ public class ClubController {
 
 	@Autowired
 	private ScheduleService scheService;
+	
+	@Autowired
+	private AlbumService albumservice;
 
 	@GetMapping("/clubManage")
 	public void clubManage(Model model, @RequestParam(value = "cname") String cname) {
 
 		Club club = clubService.getClub(cname);
 		model.addAttribute("club", club);
-
-//		
-//		if(menu.equals("schedule")) {
-//			List<Schedule> scList = scheService.getScheduleList(club);
-//			model.addAttribute("schedule", scList);
-//		}
-//		else if(menu.equals("album")) {
-//			
-//		}
-//		else { // member
-//			
-//		}
-		
-
 	}
 
 	@GetMapping("/clubMain")
-	public void clubMain(Model model, @RequestParam(value = "cname") String cname) {
+	public void clubMain(Model model, @RequestParam(value = "cname") String cname, Principal prin,
+			@PageableDefault Pageable pageable) {
 
 		Club club = clubService.getClub(cname);
 		model.addAttribute("club", club);
@@ -72,28 +64,44 @@ public class ClubController {
 
 		List<Registration> regList = regiService.findRegiByClub(club.getCid());
 
-		List<Person> perList = new ArrayList<>();
+		List<Person> memberList = new ArrayList<>();
+		List<Person> capList = new ArrayList<>();
+		
+		String username = prin.getName();
+		Person per;
+		
+		if (username != null)
+			per = personService.getPerson(username);
+		else
+			per = personService.getPerson("jun"); // null 처리
 
 		for (Registration registration : regList) {
+
 			Person person = personService.findByPersonId(registration.getPerson().getPerson_id());
-			perList.add(person);
+			
+			if(person.getPerson_id() == per.getPerson_id()) {
+				model.addAttribute("regi", registration);
+			}
+			
+			if(registration.getEnabled() == 1){
+				memberList.add(person);
+			}
+			else if(registration.getEnabled() == 2){ // 2
+				capList.add(person);
+			}
+			else { // 0 
+				
+			}
+			
 		}
 
-		model.addAttribute("people", perList);
+		model.addAttribute("members", memberList);
+		model.addAttribute("caps", capList);
+		
+		Page<Album> albumList = albumservice.getAlbumPageByClub(pageable, club);
+		model.addAttribute("albumList", albumList);
+		model.addAttribute("totalPages", albumList.getTotalPages());
 	}
-//	@GetMapping("/clubIntro")
-//	public void clubIntro(Model model, @RequestParam(value="category", required = false) String category) {
-//		
-//		List<Club> clubList;
-//		if(category == null) {
-//			clubList = clubService.getClubList();
-//		}
-//		else {
-//			clubList = clubService.getClubByCategory(category);
-//		}
-//		
-//		model.addAttribute("clubList", clubList);			
-//	}
 
 	@GetMapping("/clubIntro")
 	public void clubIntro(Model model, @RequestParam(value = "category", required = false) String category,
@@ -133,6 +141,7 @@ public class ClubController {
 		Registration regi = new Registration();
 		regi.setPerson(person);
 		regi.setClub(club);
+		regi.setEnabled(0L);
 
 		regiService.insertRegistraion(regi);
 
