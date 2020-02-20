@@ -45,12 +45,15 @@ public class SecurityController {
 		List<Activity_Board> actList = activityService.getTop5List();
 		List<Writer> writerList = new ArrayList<>();
 
-		for (Activity_Board activity_Board : actList) {
-
-			Writer writer = new Writer();
-			writer.setAct_Board(activity_Board);
-			writer.setPerson(activity_Board.getPerson());
-			writerList.add(writer);
+		if(actList.size() > 0) {
+		
+			for (Activity_Board activity_Board : actList) {
+				Writer writer = new Writer();
+				writer.setAct_Board(activity_Board);
+				writer.setPerson(activity_Board.getPerson());
+				writerList.add(writer);
+			}
+			
 		}
 
 		model.addAttribute("writerList", writerList);
@@ -97,7 +100,9 @@ public class SecurityController {
 
 		List<Schedule> sList = scheService.getByPersonScheduleList(person);
 		model.addAttribute("sList", sList);
-		model.addAttribute("upEvent", sList.get(0));
+		
+		if(sList.size() > 0)
+			model.addAttribute("upEvent", sList.get(0));
 
 	}
 

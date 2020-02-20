@@ -57,32 +57,41 @@ public class ClubService {
 		
 		List<Object[]> objList = clubRepo.queryByClubCount();
 		
-//		Logger logger = LoggerFactory.getLogger(ClubService.class);
-		
-		long max = 0L;
-		int index = 0;
-		
-		for (int i = 0; i < objList.size(); i++) {
+		if(objList.size() > 0) {
+//			Logger logger = LoggerFactory.getLogger(ClubService.class);
 			
-			Object[] objects = objList.get(i);
+			long max = 0L;
+			int index = 0;
 			
-			BigDecimal bd = (BigDecimal)objects[0];
-			long cnt = bd.longValue();
-			
-			if(max < cnt) {
-				max = cnt;
-				index = i;
+			for (int i = 0; i < objList.size(); i++) {
+				
+				Object[] objects = objList.get(i);
+				
+				BigDecimal bd = (BigDecimal)objects[0];
+				long cnt = bd.longValue();
+				
+				if(max < cnt) {
+					max = cnt;
+					index = i;
+				}
 			}
+			
+			
+			BigDecimal bb = (BigDecimal) objList.get(index)[1];
+			Long cid = bb.longValue();
+			
+			return cid;
 		}
+
 		
-		
-		BigDecimal bb = (BigDecimal) objList.get(index)[1];
-		Long cid = bb.longValue();
-		
-		return cid;
+		return 1L;
 	}
 	
 	public Club getClubById(long cid) {
-		return clubRepo.findByCid(cid).get();
+		
+		if(clubRepo.findById(cid).isPresent())
+			return clubRepo.findByCid(cid).get();
+		
+		return null;
 	}
 }
