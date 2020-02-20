@@ -45,15 +45,15 @@ public class SecurityController {
 		List<Activity_Board> actList = activityService.getTop5List();
 		List<Writer> writerList = new ArrayList<>();
 
-		if(actList.size() > 0) {
-		
+		if (actList.size() > 0) {
+
 			for (Activity_Board activity_Board : actList) {
 				Writer writer = new Writer();
 				writer.setAct_Board(activity_Board);
 				writer.setPerson(activity_Board.getPerson());
 				writerList.add(writer);
 			}
-			
+
 		}
 
 		model.addAttribute("writerList", writerList);
@@ -61,7 +61,14 @@ public class SecurityController {
 		Long maxcid = clubService.getClubIdMaxCount();
 
 		Club maxClub = clubService.getClubById(maxcid);
-		model.addAttribute("maxClub", maxClub);
+
+		if (maxClub != null) {
+
+			model.addAttribute("haveMax", 1);
+			model.addAttribute("maxClub", maxClub);
+		} else {
+			model.addAttribute("haveMax", 0);
+		}
 
 		return "index";
 	}
@@ -96,13 +103,21 @@ public class SecurityController {
 
 		Club maxClub = clubService.getClubById(maxcid);
 //		logger.info(maxClub.toString());
-		model.addAttribute("maxClub", maxClub);
+		if (maxClub != null) {
+			model.addAttribute("haveMax", 1);
+			model.addAttribute("maxClub", maxClub);
+		} else {
+			model.addAttribute("haveMax", 0);
+		}
 
 		List<Schedule> sList = scheService.getByPersonScheduleList(person);
 		model.addAttribute("sList", sList);
-		
-		if(sList.size() > 0)
+
+		if (sList.size() > 0 ) {
+			model.addAttribute("haveEvent", 1);
 			model.addAttribute("upEvent", sList.get(0));
+		} else
+			model.addAttribute("haveEvent", 0);
 
 	}
 

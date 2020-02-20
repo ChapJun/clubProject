@@ -222,50 +222,45 @@ a:active {
 
 			<!-- Right Column -->
 			<div class="w3-col m2">
-				<div class="w3-card w3-round w3-white w3-center" style="margin-top: 16px;">
+				<div class="w3-card w3-round w3-white w3-center"
+					style="margin-top: 16px;">
 					<div class="w3-container">
-						<p><b><i class="fa fa-calendar-o" aria-hidden="true"></i> Upcoming Events</b></p>
-						<hr class ="w3-clear">
-<!-- 						<p> -->
-<!-- 							<strong th:text="${upEvent.club.cname}"></strong> -->
-<!-- 						</p> -->
-<!-- 						<p th:text="${#dates.format(upEvent.wdate,'yyyy-MM-dd HH:mm')}">Friday 15:00</p> -->
-<!-- 						<p> -->
-<!-- 						<a th:href="@{/clubMain(cname=${upEvent.club.cname})}"> -->
-<!-- 							<button class="w3-button w3-block w3-theme-l4">Info</button></a> -->
+						<p>
+							<b><i class="fa fa-calendar-o" aria-hidden="true"></i>
+								Upcoming Events</b>
 						</p>
+						<hr class="w3-clear">
+						<th:block th:if="${haveEvent} > 0">
+							<p>
+								<strong th:text="${upEvent.club.cname}"></strong>
+							</p>
+							<p th:text="${#dates.format(upEvent.wdate,'yyyy-MM-dd HH:mm')}"></p>
+							<p>
+								<a th:href="@{/clubMain(cname=${upEvent.club.cname})}">
+									<button class="w3-button w3-block w3-theme-l4">Info</button>
+								</a>
+							</p>
+						</th:block>
 					</div>
 				</div>
 				<br>
 
 				<div class="w3-card w3-round w3-white w3-center">
 					<div class="w3-container">
-<!-- 						<p> -->
-<!-- 							<i class="fa fa-fire" style="color: red; font-size: 25px;"></i><b -->
-<!-- 								style="font-size: 20px;"> 'Hot'</b>한 동호회 <i class="fa fa-fire" -->
-<!-- 								style="color: red; font-size: 25px;"></i> -->
-<!-- 						</p> -->
-<!-- 						<hr class ="w3-clear"> -->
-<!-- 						<img th:src="${maxClub.club_img}" alt="Club" style="width: 100%"><br> -->
-<!-- 						<br> <span th:text="${maxClub.cname}" -->
-<!-- 							style="font-size: 18px;"></span> <br> <br> -->
-
-						<!-- 
-						<div class="w3-row w3-opacity">
-							<div class="w3-half">
-								<button class="w3-button w3-block w3-green w3-section"
-									title="Accept">
-									<i class="fa fa-check"></i>
-								</button>
-							</div>
-							<div class="w3-half">
-								<button class="w3-button w3-block w3-red w3-section"
-									title="Decline">
-									<i class="fa fa-remove"></i>
-								</button>
-							</div>
-						</div>
-						 -->
+						<p>
+							<i class="fa fa-fire" style="color: red; font-size: 25px;"></i><b
+								style="font-size: 20px;"> 'Hot'</b>한 동호회 <i class="fa fa-fire"
+								style="color: red; font-size: 25px;"></i>
+						</p>
+						<hr class="w3-clear">
+						<th:block th:if="${haveMax} > 0">
+							<img th:src="${maxClub.club_img}" alt="Club" style="width: 100%">
+							<br>
+							<br>
+							<span th:text="${maxClub.cname}" style="font-size: 18px;"></span>
+							<br>
+							<br>
+						</th:block>
 					</div>
 				</div>
 				<br>

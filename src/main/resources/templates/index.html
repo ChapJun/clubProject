@@ -11,7 +11,9 @@
 	href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
 <link rel='stylesheet'
 	href='https://fonts.googleapis.com/css?family=Open+Sans'>
-<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap"
+	rel="stylesheet">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
@@ -106,22 +108,23 @@ html, body, h1, h2, h3, h4, h5 {
 					<div class="w3-white">
 						<button onclick="myFunction('Demo1')"
 							class="w3-button w3-block w3-theme-l1 w3-left-align">
-							<i class="fa fa-users fa-fw w3-margin-right"></i> My
-							Clubs 
+							<i class="fa fa-users fa-fw w3-margin-right"></i> My Clubs
 						</button>
 						<div id="Demo1" class="w3-hide w3-container">
 							<p>Please Login...</p>
 						</div>
 						<button onclick="myFunction('Demo3')"
 							class="w3-button w3-block w3-theme-l1 w3-left-align">
-							<i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i> Waiting to join
+							<i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i>
+							Waiting to join
 						</button>
 						<div id="Demo3" class="w3-hide w3-container">
 							<p>Please Login...</p>
 						</div>
 						<button onclick="myFunction('Demo2')"
 							class="w3-button w3-block w3-theme-l1 w3-left-align">
-							<i class="fa fa-calendar-check-o fa-fw w3-margin-right"></i> My Events
+							<i class="fa fa-calendar-check-o fa-fw w3-margin-right"></i> My
+							Events
 						</button>
 						<div id="Demo2" class="w3-hide w3-container">
 							<p>Please Login...</p>
@@ -200,10 +203,11 @@ html, body, h1, h2, h3, h4, h5 {
 
 			<!-- Right Column -->
 			<div class="w3-col m2">
-				<div class="w3-card w3-round w3-white w3-center" style="margin-top: 16px;">
+				<div class="w3-card w3-round w3-white w3-center"
+					style="margin-top: 16px;">
 					<div class="w3-container">
 						<p>Upcoming Events:</p>
-						<hr class ="w3-clear">
+						<hr class="w3-clear">
 						<p>
 							<strong>Please Login...</strong>
 						</p>
@@ -218,15 +222,20 @@ html, body, h1, h2, h3, h4, h5 {
 								style="font-size: 20px;"> 'Hot'</b>한 동호회 <i class="fa fa-fire"
 								style="color: red; font-size: 25px;"></i>
 						</p>
-						<hr>
-<!-- 						<img th:src="${maxClub.club_img}" alt="Club" style="width: 100%"><br> -->
-<!-- 						<br> <span th:text="${maxClub.cname}" style="font-size:18px;"></span> <br> -->
-						<br>
+						<hr class="w3-clear">
+						<th:block th:if="${haveMax} > 0">
+							<img th:src="${maxClub.club_img}" alt="Club" style="width: 100%">
+							<br>
+							<br>
+							<span th:text="${maxClub.cname}" style="font-size: 18px;"></span>
+							<br>
+							<br>
+						</th:block>
 					</div>
 				</div>
 				<br>
 
-				
+
 
 				<!-- End Right Column -->
 			</div>
