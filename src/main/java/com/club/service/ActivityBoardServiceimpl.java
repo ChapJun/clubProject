@@ -17,7 +17,6 @@ public class ActivityBoardServiceimpl implements ActivityBoardService {
 	@Autowired
 	private Activity_BoardRepository activity_boardRepo;
 	
-
 	@Override
 	public List<Activity_Board> getBoardList() {
 		return (List<Activity_Board>) activity_boardRepo.findAll();

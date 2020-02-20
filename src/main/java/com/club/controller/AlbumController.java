@@ -64,6 +64,7 @@ public class AlbumController {
 			@RequestParam(value = "file") MultipartFile file, RedirectAttributes attr)
 			throws IllegalStateException, IOException {
 
+		
 		String path = System.getProperty("user.dir");
 		path += "\\src\\main\\resources\\static\\img\\";
 

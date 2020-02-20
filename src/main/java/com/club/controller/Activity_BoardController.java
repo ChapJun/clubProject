@@ -111,7 +111,14 @@ public class Activity_BoardController {
 	
 	@GetMapping("/deleteBoard")
 	public String deleteBoard(Activity_Board board) {
+		
+		List<Activity_Board_Comment> comList = commentService.getByActivityBoard(board);
+		
+		for (Activity_Board_Comment com : comList) {
+			commentService.deleteComment(com);
+		}
 		activityBoardService.deleteBoard(board);
+		
 		return "forward:getBoardList";
 	}
 	

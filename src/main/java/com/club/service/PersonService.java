@@ -57,5 +57,5 @@ public class PersonService implements UserDetailsService {
 	public List<Registration> getMyRegistration(Long person_id) {
 		return perRepo.findMyRegistration(person_id);
 	}
-
+	
 }

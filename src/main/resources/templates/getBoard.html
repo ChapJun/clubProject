@@ -79,9 +79,16 @@ th {
 				</tr>
 				<tr>
 					<th th:text="내용"></th>
-					<td><textarea name="content"
-							th:text="${Activity_Board.content}" rows="10"
-							style="width: 100%;"></textarea></td>
+					<th:block th:if="${username} == ${Activity_Board.writer_name}">
+						<td><textarea name="content"
+								th:text="${Activity_Board.content}" rows="10"
+								style="width: 100%;"></textarea></td>
+					</th:block>
+					<th:block th:unless="${username} == ${Activity_Board.writer_name}">
+						<td><textarea name="content"
+								th:text="${Activity_Board.content}" rows="10"
+								style="width: 100%;" readonly></textarea></td>
+					</th:block>
 				</tr>
 				<tr>
 					<th th:text="등록일"></th>

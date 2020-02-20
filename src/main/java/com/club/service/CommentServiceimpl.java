@@ -31,7 +31,9 @@ public class CommentServiceimpl implements CommentService {
 		commentrepo.deleteById(comment.getCmt_no());
 	}
 
-	
+	public List<Activity_Board_Comment> getByActivityBoard(Activity_Board board) {
+		return commentrepo.findByBoard(board);
+	}
 
 
 }
