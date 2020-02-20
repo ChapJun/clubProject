@@ -41,6 +41,7 @@ a:active {
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#navbar").load("html/menu.html");
+		$("#foot").load("html/footer.html");
 	});
 </script>
 </head>
@@ -101,8 +102,7 @@ a:active {
 					<div class="w3-white">
 						<button onclick="myFunction('Demo1')"
 							class="w3-button w3-block w3-theme-l1 w3-left-align">
-							<i class="fa fa-users fa-fw w3-margin-right"></i> My
-							Clubs 
+							<i class="fa fa-users fa-fw w3-margin-right"></i> My Clubs
 						</button>
 						<div id="Demo1" class="w3-hide w3-container">
 							<th:block th:each="regi : ${myRegi}" th:if="${regi.enabled} == 2">
@@ -116,7 +116,8 @@ a:active {
 						</div>
 						<button onclick="myFunction('Demo3')"
 							class="w3-button w3-block w3-theme-l1 w3-left-align">
-							<i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i>Waiting to join
+							<i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i>Waiting
+							to join
 						</button>
 						<div id="Demo3" class="w3-hide w3-container">
 							<div class="w3-row-padding">
@@ -132,7 +133,11 @@ a:active {
 							Events
 						</button>
 						<div id="Demo2" class="w3-hide w3-container">
-							<p>Some other text..</p>
+							<th:block th:each="sche : ${sList}">
+								<p th:text="${sche.club.cname}" style="font-weight: bold;"></p>
+								<p th:text="${#dates.format(sche.wdate,'yyyy-MM-dd HH:mm')}"></p>
+								<p th:text="${sche.location}"></p>
+							</th:block>
 						</div>
 					</div>
 				</div>
@@ -209,10 +214,6 @@ a:active {
 						</div>
 						-->
 						</div>
-						<button type="button"
-							class="w3-button w3-theme-d2 w3-margin-bottom">
-							<i class="fa fa-comment"></i>  Comment
-						</button>
 					</div>
 				</th:block>
 
@@ -221,16 +222,17 @@ a:active {
 
 			<!-- Right Column -->
 			<div class="w3-col m2">
-				<div class="w3-card w3-round w3-white w3-center">
+				<div class="w3-card w3-round w3-white w3-center" style="margin-top: 16px;">
 					<div class="w3-container">
-						<p>Upcoming Events:</p>
-						<img src="/w3images/forest.jpg" alt="Forest" style="width: 100%;">
+						<p><b><i class="fa fa-calendar-o" aria-hidden="true"></i> Upcoming Events</b></p>
+						<hr class ="w3-clear">
 						<p>
-							<strong>Holiday</strong>
+							<strong th:text="${upEvent.club.cname}"></strong>
 						</p>
-						<p>Friday 15:00</p>
+						<p th:text="${#dates.format(upEvent.wdate,'yyyy-MM-dd HH:mm')}">Friday 15:00</p>
 						<p>
-							<button class="w3-button w3-block w3-theme-l4">Info</button>
+						<a th:href="@{/clubMain(cname=${upEvent.club.cname})}">
+							<button class="w3-button w3-block w3-theme-l4">Info</button></a>
 						</p>
 					</div>
 				</div>
@@ -238,9 +240,17 @@ a:active {
 
 				<div class="w3-card w3-round w3-white w3-center">
 					<div class="w3-container">
-						<p>Friend Request</p>
-						<img src="/w3images/avatar6.png" alt="Avatar" style="width: 50%"><br>
-						<span>Jane Doe</span>
+						<p>
+							<i class="fa fa-fire" style="color: red; font-size: 25px;"></i><b
+								style="font-size: 20px;"> 'Hot'</b>한 동호회 <i class="fa fa-fire"
+								style="color: red; font-size: 25px;"></i>
+						</p>
+						<hr class ="w3-clear">
+						<img th:src="${maxClub.club_img}" alt="Club" style="width: 100%"><br>
+						<br> <span th:text="${maxClub.cname}"
+							style="font-size: 18px;"></span> <br> <br>
+
+						<!-- 
 						<div class="w3-row w3-opacity">
 							<div class="w3-half">
 								<button class="w3-button w3-block w3-green w3-section"
@@ -255,20 +265,11 @@ a:active {
 								</button>
 							</div>
 						</div>
+						 -->
 					</div>
 				</div>
 				<br>
 
-				<div class="w3-card w3-round w3-white w3-padding-16 w3-center">
-					<p>ADS</p>
-				</div>
-				<br>
-
-				<div class="w3-card w3-round w3-white w3-padding-32 w3-center">
-					<p>
-						<i class="fa fa-bug w3-xxlarge"></i>
-					</p>
-				</div>
 
 				<!-- End Right Column -->
 			</div>
@@ -281,18 +282,11 @@ a:active {
 	<br>
 
 	<!-- Footer -->
-	<footer class="w3-container w3-theme-d3 w3-padding-16">
-		<h5>Footer</h5>
-	</footer>
+	<div id="foot"></div>
 
-	<footer class="w3-container w3-theme-d5">
-		<p>
-			Powered by <a href="https://www.w3schools.com/w3css/default.asp"
-				target="_blank">w3.css</a>
-		</p>
-	</footer>
 
-	<script>
+
+	<script type="text/javascript">
 		// Accordion
 		function myFunction(id) {
 			var x = document.getElementById(id);

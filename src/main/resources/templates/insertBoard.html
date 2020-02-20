@@ -28,38 +28,44 @@ html, body, h1, h2, h3, h4, h5 {
 
 
 </head>
-<body>
- <nav id="navbar"></nav> 
- <br>
- <br>
- <br>
-	<center>
-		<h1>게시글 등록</h1>
+<body th:align="center">
+
+	<nav id="navbar"></nav>
+
+	<br>
+	<br>
+
+	<div class="w3-container" style="margin-top: 70px;">
+		<br>
+		<h1>활동보고 게시판</h1>
+		<hr class="w3-clear">
 		<form th:action="insertBoard" method="post">
-			<table th:algin="center" border="1" th:cellpadding="0"
+			<table th:align="center" border="1" th:cellpadding="0"
 				th:cellespacing="0" th:width="700">
 				<tr>
 					<td  th:text="제목" width="80"></td>
-					<td><input name="title" type="text" size="50"></td>
+					<td><input name="title" type="text" style="width: 100%"></td>
 				</tr>
 					<tr>
 						<td  th:text="작성자" ></td>
-						<td><input name="writer_name" type="text" size ="10"
-						th:value="${username}" readonly></td>
+						<td style="text-align: left;"><input name="writer_name" type="text" size ="10"
+						th:value="${username}" readonly style="width: 100%"></td>
 					</tr>
 				<tr>
 					<td th:text="내용"></td>
-					<td><textarea name="content" cols="50" rows="10"></textarea></td>
+					<td><textarea name="content" rows="10"
+							style="width: 100%;"></textarea></td>
 				</tr>
-				<tr>
-					<td colspan="2" align="center"><input type="submit"
-						value="게시글 등록"></td>
-				</tr>
-
-				</center>
 			</table>
+			<br>
+			<input class="w3-button w3-theme" type="submit"
+						value="게시글 등록">
+			
 		</form>
 		<br>
-		<a th:href="@{getBoardList}"><button>글목록</button></a>
+		<a th:href="@{/getBoardList}"><button class="w3-button w3-theme">게시글 목록</button></a>
+		<br>
+		
+		</div>
 </body>
 </html>

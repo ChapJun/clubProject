@@ -1,14 +1,18 @@
 package com.club.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.club.controller.SecurityController;
 import com.club.domain.Club;
 import com.club.persistence.ClubRepository;
 
@@ -49,4 +53,36 @@ public class ClubService {
 		return (Page<Club>) clubRepo.queryByCategory(category, pageable);
 	}
 	
+	public Long getClubIdMaxCount() {
+		
+		List<Object[]> objList = clubRepo.queryByClubCount();
+		
+//		Logger logger = LoggerFactory.getLogger(ClubService.class);
+		
+		long max = 0L;
+		int index = 0;
+		
+		for (int i = 0; i < objList.size(); i++) {
+			
+			Object[] objects = objList.get(i);
+			
+			BigDecimal bd = (BigDecimal)objects[0];
+			long cnt = bd.longValue();
+			
+			if(max < cnt) {
+				max = cnt;
+				index = i;
+			}
+		}
+		
+		
+		BigDecimal bb = (BigDecimal) objList.get(index)[1];
+		Long cid = bb.longValue();
+		
+		return cid;
+	}
+	
+	public Club getClubById(long cid) {
+		return clubRepo.findByCid(cid).get();
+	}
 }

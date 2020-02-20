@@ -21,10 +21,66 @@
 html, body, h1, h2, h3, h4, h5 {
 	font-family: "Open Sans", sans-serif
 }
+
+#delete {
+	background: red;
+	color: #fff;
+	border: none;
+	position: relative;
+	height: 30px;
+	font-size: 1.1em;
+	padding: 0 2em;
+	cursor: pointer;
+	transition: 800ms ease all;
+	outline: none;
+}
+
+#apply {
+	background: #237fbc;
+	color: #fff;
+	border: none;
+	position: relative;
+	height: 30px;
+	font-size: 1.1em;
+	padding: 0 2em;
+	cursor: pointer;
+	transition: 800ms ease all;
+	outline: none;
+}
+
+#apply:hover, #delete:hover {
+	background: #fff;
+	color: #1AAB8A;
+}
+
+#apply:before, #apply:after, #delete:before, #delete:after {
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	height: 2px;
+	width: 0;
+	background: #1AAB8A;
+	transition: 400ms ease all;
+}
+
+#apply:after, #delete:after {
+	right: inherit;
+	top: inherit;
+	left: 0;
+	bottom: 0;
+}
+
+#apply:hover:before, #apply:hover:after, #delete:hover:before, #delete:hover:after
+	{
+	width: 100%;
+	transition: 800ms ease all;
+}
 </style>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#navbar").load("html/menu.html");
+		$("#foot").load("html/footer.html");
 	});
 </script>
 </head>
@@ -84,8 +140,18 @@ html, body, h1, h2, h3, h4, h5 {
 									style="font-size: 20px; color: #00498c;"></i> <span
 									style="font-size: 16px;" th:text="${sche.content}"></span>
 							</p>
-							<br>
+							<a
+								th:href="@{/schedulingApply(cname=${club.cname}, scid=${sche.scid})}"><button
+									id="apply">신청</button></a>
+							<th:block th:each="duling : ${dulingIdList}">
+								<a th:if="${duling} == ${sche.scid}"
+									th:href="@{/schedulingDelete(cname=${club.cname}, scid=${sche.scid})}"><button
+										id="delete">취소</button></a>
+							</th:block>
+
+							<hr class="w3-clear">
 						</th:block>
+						<br>
 
 					</div>
 				</div>
@@ -95,8 +161,7 @@ html, body, h1, h2, h3, h4, h5 {
 			<!-- Middle Column -->
 			<div class="w3-col m7 w3-row-padding">
 
-				<div class="w3-container w3-card w3-white w3-round w3-margin"
-					>
+				<div class="w3-container w3-card w3-white w3-round w3-margin">
 					<div class="w3-row-padding">
 						<br>
 						<th:block th:each="Album : ${albumList}">
@@ -119,7 +184,8 @@ html, body, h1, h2, h3, h4, h5 {
 								th:if="${totalPages} >0">
 
 								<a th:href="@{/clubMain(page=${num}, cname=${club.cname})}"
-									class= "w3-margin-right w3-bar-item w3-black w3-button" th:text="${num}"></a>
+									class="w3-margin-right w3-bar-item w3-black w3-button"
+									th:text="${num}"></a>
 							</th:block>
 						</div>
 					</div>
@@ -165,16 +231,7 @@ html, body, h1, h2, h3, h4, h5 {
 	</div>
 	<br>
 	<!-- Footer -->
-	<footer class="w3-container w3-theme-d3 w3-padding-16">
-		<h5>Footer</h5>
-	</footer>
-
-	<footer class="w3-container w3-theme-d5">
-		<p>
-			Powered by <a href="https://www.w3schools.com/w3css/default.asp"
-				target="_blank">w3.css</a>
-		</p>
-	</footer>
+	<div id="foot"></div>
 
 	<script>
 		// Accordion

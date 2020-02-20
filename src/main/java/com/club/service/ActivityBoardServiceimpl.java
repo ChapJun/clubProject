@@ -50,7 +50,7 @@ public class ActivityBoardServiceimpl implements ActivityBoardService {
 
 	@Override
 	public List<Activity_Board> getTop5List() {
-		return activity_boardRepo.findTop5();
+		return activity_boardRepo.findTop5ByOrderByRegdateDesc();
 	}
 	
 	@Override
@@ -71,7 +71,7 @@ public class ActivityBoardServiceimpl implements ActivityBoardService {
 		int page = (pageable.getPageNumber() == 0 ) ? 0 : (pageable.getPageNumber() - 1);
 		 pageable = PageRequest.of(page, 10);
 		 
-		 return (Page<Activity_Board>) activity_boardRepo.findAll(pageable);
+		 return (Page<Activity_Board>) activity_boardRepo.findAllOrderByBoard_noDesc(pageable);
 	}
 
 	@Override

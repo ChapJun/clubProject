@@ -35,13 +35,19 @@ public class AlbumController {
 	Logger logger = LoggerFactory.getLogger(AlbumController.class);
 
 	@GetMapping("/getAlbumList")
-	public void getAlbumList(Model model, @RequestParam(value = "cname") String cname) {
+	public void getAlbumList(Model model, @RequestParam(value = "cname") String cname,
+			@PageableDefault Pageable pageable) {
 
 		Club club = clubService.getClub(cname);
 		model.addAttribute("club", club);
 
-		List<Album> albumList = albumservice.getAlbumListByClub(club);
+//		List<Album> albumList = albumservice.getAlbumListByClub(club);
+//		model.addAttribute("albumList", albumList);
+		
+		Page<Album> albumList = albumservice.getAlbumPageByClub(pageable, club);
 		model.addAttribute("albumList", albumList);
+		model.addAttribute("totalPages", albumList.getTotalPages());
+		
 	}
 
 	@GetMapping("/insertAlbum")

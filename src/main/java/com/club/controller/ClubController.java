@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,6 +23,7 @@ import com.club.domain.Club;
 import com.club.domain.Person;
 import com.club.domain.Registration;
 import com.club.domain.Schedule;
+import com.club.domain.Scheduling;
 import com.club.service.AlbumService;
 import com.club.service.ClubService;
 import com.club.service.PersonService;
@@ -41,9 +44,11 @@ public class ClubController {
 
 	@Autowired
 	private ScheduleService scheService;
-	
+
 	@Autowired
 	private AlbumService albumservice;
+
+	Logger logger = LoggerFactory.getLogger(ClubController.class);
 
 	@GetMapping("/clubManage")
 	public void clubManage(Model model, @RequestParam(value = "cname") String cname) {
@@ -59,6 +64,7 @@ public class ClubController {
 		Club club = clubService.getClub(cname);
 		model.addAttribute("club", club);
 
+		// 이 클럽의 스케줄
 		List<Schedule> scList = scheService.getScheduleList(club);
 		model.addAttribute("schedule", scList);
 
@@ -66,10 +72,10 @@ public class ClubController {
 
 		List<Person> memberList = new ArrayList<>();
 		List<Person> capList = new ArrayList<>();
-		
+
 		String username = prin.getName();
 		Person per;
-		
+
 		if (username != null)
 			per = personService.getPerson(username);
 		else
@@ -78,29 +84,44 @@ public class ClubController {
 		for (Registration registration : regList) {
 
 			Person person = personService.findByPersonId(registration.getPerson().getPerson_id());
-			
-			if(person.getPerson_id() == per.getPerson_id()) {
+
+			if (person.getPerson_id() == per.getPerson_id()) {
 				model.addAttribute("regi", registration);
 			}
-			
-			if(registration.getEnabled() == 1){
+
+			if (registration.getEnabled() == 1) {
 				memberList.add(person);
-			}
-			else if(registration.getEnabled() == 2){ // 2
+			} else if (registration.getEnabled() == 2) { // 2
 				capList.add(person);
+			} else { // 0
+
 			}
-			else { // 0 
-				
-			}
-			
+
 		}
 
 		model.addAttribute("members", memberList);
 		model.addAttribute("caps", capList);
-		
+
 		Page<Album> albumList = albumservice.getAlbumPageByClub(pageable, club);
 		model.addAttribute("albumList", albumList);
 		model.addAttribute("totalPages", albumList.getTotalPages());
+
+		List<Long> dulingIdList = new ArrayList<>();
+
+		for (Schedule sche : scList) {
+
+			Scheduling ss = scheService.getSchedulingByScheduleByPerson(sche, per);
+			if (ss != null) {
+
+				long scid = ss.getSchedule().getScid();
+//				logger.info(String.valueOf(scid));
+				dulingIdList.add(scid);
+			}
+
+		}
+
+//		logger.info(String.valueOf(dulingIdList.size()));
+		model.addAttribute("dulingIdList", dulingIdList);
 	}
 
 	@GetMapping("/clubIntro")

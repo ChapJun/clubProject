@@ -23,8 +23,8 @@ public class Scheduling {
 	private Long scid;
 	
 	@ManyToOne
-	@JoinColumn(name="CLUB_ID")
-	private Club club;
+	@JoinColumn(name="PERSON_ID")
+	private Person person;
 	
 	@ManyToOne
 	@JoinColumn(name="SCHEDULE_ID")

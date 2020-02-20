@@ -2,7 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <link rel="stylesheet" href="style.css" />
-<title>글 목록</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mingle With IDT</title>
 <meta http-equiv = "Content-Type" content ="text/html; charset=UTF-8">
 		<!-- 합쳐지고 최소화된 최신 CSS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -28,9 +29,6 @@ html, body, h1, h2, h3, h4, h5 {
 	font-family: "Open Sans", sans-serif
 }
 </style>
-
-
-
 </head>
 <body th:align="center">
 
@@ -39,23 +37,23 @@ html, body, h1, h2, h3, h4, h5 {
 	<br>
 	<br>
 	
-<div class="container">
+<div class="container" style="margin-top:70px;">
 <br>
 <h1>활동보고 게시판</h1>
+<hr class = "w3-clear">
+<a th:href="getBoardList"> <button class="btn pull-right w3-button w3-theme">글목록</button></a>
+<a th:href="insertBoard"> <button class="btn pull-right w3-button w3-theme w3-margin-right">글작성</button></a>
 <br>
-<a th:href="getBoardList"> <button class="btn pull-right">글목록</button></a>
-<a th:href="insertBoard"> <button class="btn pull-right w3-margin-right">글작성</button></a>
 <br>
 <br>
 
-<table class="table table-hover" th:align="center" border="1" th:cellpadding="0" th:cellspadding="0" th:width="700">
-<tr>
+<table class="w3-table-all w3-hoverable" th:align="center" border="1" th:cellpadding="0" th:cellspadding="0" th:width="700">
+<tr class="w3-gray">
 	<th width="40" style="text-align:center;">번호</th>
 	<th width="200"style="text-align:center;">제목</th>
 	<th width="80"style="text-align:center;">작성자</th>
 	<th width="80"style="text-align:center;">등록일</th>
 	<th width="40"style="text-align:center;">조회수</th>
-
 </tr>
 <tr th:each="Activity_Board, state : ${boardList}">
 	<td th:text="${Activity_Board.board_no}"></td>

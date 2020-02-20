@@ -63,7 +63,7 @@ public class AlbumServiceimpl implements AlbumService{
 		int page = (pageable.getPageNumber() == 0 ) ? 0 : (pageable.getPageNumber() - 1);
 		 pageable = PageRequest.of(page, 6);
 		
-		 return (Page<Album>) albumRepo.findAll(pageable);
+		 return (Page<Album>) albumRepo.findByClubOrderByWdateDesc(pageable, club);
 	}
 
 	

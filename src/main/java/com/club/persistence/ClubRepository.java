@@ -21,9 +21,14 @@ public interface ClubRepository  extends JpaRepository<Club, Long>{
 	
 	List<Club> findByCategory(String category);
 	
+	Optional<Club> findByCid(Long cid);
+	
 	@Query("SELECT c FROM Club c WHERE c.category=?1 and c.state=1 ORDER BY c.cid DESC")
 	List<Club> queryByCategory(String category);
 	
 	@Query("SELECT c FROM Club c WHERE c.category=?1 and c.state=1 ORDER BY c.cid DESC")
 	Page<Club> queryByCategory(String category, Pageable pageable);
+	
+	@Query(nativeQuery = true, value = "select count(*), club_id from club join schedule using(club_id) group by club_id")
+	List<Object[]> queryByClubCount();
 }

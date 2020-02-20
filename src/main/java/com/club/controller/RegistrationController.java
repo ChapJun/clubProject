@@ -21,9 +21,6 @@ public class RegistrationController {
 	@Autowired
 	private ClubService clubService;
 
-	@Autowired
-	private PersonService personService;
-	
 	@GetMapping("/approvalMember")
 	public String approvalMember(RedirectAttributes attr, @RequestParam(value = "cname") String cname,
 			@RequestParam(value = "pid") Long pid) {

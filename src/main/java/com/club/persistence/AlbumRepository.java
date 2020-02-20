@@ -19,6 +19,6 @@ public interface AlbumRepository extends JpaRepository<Album, Long> {
 
 	List<Album> findByClub(Club club);
 	
-	Page<Club> findByClub(Pageable pageable, Club club);
+	Page<Album> findByClubOrderByWdateDesc(Pageable pageable, Club club);
 	
 }
